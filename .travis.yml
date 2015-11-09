@@ -16,6 +16,7 @@ install:
       && tar -xzf cmake-3.3.2-Linux-i386.tar.gz
       && sudo cp -fR cmake-3.3.2-Linux-i386/* /usr
       && sudo apt-add-repository -y ppa:beineri/opt-qt551
+      && sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
       && sudo apt-get -qq update
       && sudo apt-get -qq install g++-4.8 libc6-i386 qt55tools qt55base
       && export CXX="g++-4.8"
