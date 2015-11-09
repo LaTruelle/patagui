@@ -1,3 +1,6 @@
+sudo: required
+dist: trusty
+
 language: cpp
 
 os:
@@ -15,12 +18,9 @@ install:
          wget https://cmake.org/files/v3.3/cmake-3.3.2-Linux-i386.tar.gz --no-check-certificate
       && tar -xzf cmake-3.3.2-Linux-i386.tar.gz
       && sudo cp -fR cmake-3.3.2-Linux-i386/* /usr
-      && sudo apt-add-repository -y ppa:beineri/opt-qt551
-      && sudo add-apt-repository -y ppa:ubuntu-toolchain-r/test
+      && sudo apt-add-repository -y ppa:beineri/opt-qt551-trusty
       && sudo apt-get -qq update
-      && sudo apt-get -qq install g++-4.8 libc6-i386 qt55tools qt55base
-      && export CXX="g++-4.8"
-      && export CC="gcc-4.8"
+      && sudo apt-get -qq install qt55tools qt55base libpython3-dev
       ;
     else
          brew update
