@@ -1,0 +1,44 @@
+language: cpp
+
+os:
+  - linux
+  - osx
+
+env:
+  - CONFIG=Release
+  - CONFIG=Debug
+
+install:
+  - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+         wget http://www.cmake.org/files/v3.2/cmake-3.2.3-Linux-i386.tar.gz
+      && tar -xzf cmake-3.2.3-Linux-i386.tar.gz
+      && sudo cp -fR cmake-3.2.3-Linux-i386/* /usr
+      && sudo apt-add-repository -y ppa:beineri/opt-qt551
+      && sudo apt-get -qq update
+      && sudo apt-get -qq install g++-4.8 libc6-i386 qt55tools qt55base
+      && export CXX="g++-4.8"
+      && export CC="gcc-4.8"
+      ;
+    else
+         brew update
+      && brew unlink cmake
+      && brew install cmake
+      && brew install qt5
+      && chmod -R 755 /usr/local/opt/qt5/*
+      ;
+    fi
+
+script:
+  # Note: Travis CI uses Ubuntu 12.04 LTS while we use Ubuntu 14.04 LTS, and
+  #       this causes problems when we try to use our prebuilt version of
+  #       libgit2 (because of its need of libc). So, to 'fix' this, we ask for
+  #       libgit2 to be built on Linux...
+  -    cd build
+    && if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
+         cmake -DCMAKE_BUILD_TYPE=$CONFIG -DCMAKE_PREFIX_PATH=/opt/qt55/lib/cmake -DUSE_PREBUILT_LIBGIT2_PLUGIN=OFF -DENABLE_TESTS=ON -DENABLE_SAMPLES=ON ..
+         ;
+       else
+         cmake -DCMAKE_BUILD_TYPE=$CONFIG -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5/lib/cmake -DENABLE_TESTS=ON -DENABLE_SAMPLES=ON ..
+         ;
+       fi
+    && make -j 3
