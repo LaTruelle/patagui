@@ -6,7 +6,6 @@ os:
 
 env:
   - CONFIG=Release
-  - CONFIG=Debug
 
 python:
     - "3.5"
