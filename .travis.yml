@@ -3,7 +3,7 @@ dist: trusty
 
 language: cpp
 
-python: 3.5
+python: 3.4
 
 os:
     - linux
@@ -51,5 +51,5 @@ after_failure:
   - ls -l /
   - ls -l /opt
   - ls -l /opt/python
-  - ls -l /opt/python/3.5.0
-  - ls -l /opt/python/3.5.0/*
+  - ls -l /opt/python/3.4
+  - ls -l /opt/python/3.4/*
