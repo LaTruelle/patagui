@@ -18,7 +18,6 @@ install:
       && sudo apt-get -qq install build-essential qt55tools qt55base cmake
       && QTDIR="/opt/qt55"
       && PATH="$QTDIR/bin:$PATH"
-      && export
       && qt55-env.sh
       ;
     else
@@ -46,6 +45,9 @@ script:
 after_failure:
   - find /home/travis/build/LaTruelle/patagui/pythonqt/src/PythonQt-External-stamp/ -name "*.log" -print -exec cat {} \;
   - echo $PATH
+  - python3 -c 'import sys; print(".".join(map(str, sys.version_info[:2])))'
+  - python3.5-config --libs
+  - python3.5-config --includes
   - python3 --version
   - which python3
   - printenv
