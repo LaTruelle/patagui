@@ -41,7 +41,7 @@ script:
         cmake -DCMAKE_BUILD_TYPE=$CONFIG -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5/lib/cmake .
         ;
     fi
-    && make -j 3
+    && make
 
 after_failure:
   - find /home/travis/build/LaTruelle/patagui/pythonqt/src/PythonQt-External-stamp/ -name "*.log" -print -exec cat {} \;
