@@ -46,10 +46,7 @@ script:
 
 after_failure:
   - echo "===================="
-  - cat /home/travis/build/LaTruelle/patagui/pythonqt/src/PythonQt-External-stamp/PythonQt-External*.log
+  - find /home/travis/build/LaTruelle/patagui/pythonqt/src/PythonQt-External-stamp/ -name "*.log" -exec echo {}; cat {} \;
   - echo "===================="
-  - ls -l /
-  - ls -l /opt
-  - ls -l /opt/python
-  - ls -l /opt/python/3.4.3
-  - ls -l /opt/python/3.4.3/*
+  - echo $PATH
+
