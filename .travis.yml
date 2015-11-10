@@ -16,7 +16,7 @@ python:
 install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
          sudo apt-add-repository -y ppa:beineri/opt-qt551-trusty
-      && sudo apt-add-repository ppa:george-edison55/cmake-3.x
+      && sudo apt-add-repository -y ppa:george-edison55/cmake-3.x
       && sudo apt-get -qq update
       && sudo apt-get -qq install qt55tools qt55base libpython3-dev cmake
       ;
