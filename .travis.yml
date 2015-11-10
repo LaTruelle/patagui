@@ -3,8 +3,6 @@ dist: trusty
 
 language: cpp
 
-python: 3.4.3
-
 os:
     - linux
     - osx
