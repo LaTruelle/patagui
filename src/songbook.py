@@ -23,7 +23,7 @@ from PythonQt import *
 sb_builder = None
 process = None
 stopProcess = False
-# logging.basicConfig(level=logging.DEBUG)
+#logging.basicConfig(level=logging.DEBUG)
 
 # Define locale according to user's parameters
 def setLocale():
@@ -77,8 +77,9 @@ def setupSongbook(songbook_path,datadir):
     # Default value
     datadirs.append(os.path.dirname(os.path.abspath(songbook_path)))
     songbook['datadir'] = datadirs
+    songbook['_basename'] = os.path.basename(songbook_path)[:-3]
     try:
-        sb_builder = SongbookBuilder(songbook, basename)
+        sb_builder = SongbookBuilder(songbook)
         sb_builder.unsafe = True
     except errors.SongbookError as error:
         print("Error in formation of Songbook Builder")
@@ -113,7 +114,7 @@ def build(steps):
 # Inner function that actually builds the songbook
 def buildSongbook(steps):
     global sb_builder
-    message("Inner Function Reached")
+    # message("Inner Function Reached")
     sys.stdout.flush()
     try:
         for step in steps:
@@ -125,7 +126,7 @@ def buildSongbook(steps):
         # Call proper function in CPPprocess
         message(error)
         raise
-    message("Exiting buildSongbook function")
+    # message("Exiting buildSongbook function")
 
 def stopBuild():
     message("Terminating process")
