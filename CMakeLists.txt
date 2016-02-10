@@ -140,12 +140,6 @@ include(${CMAKE_MODULE_PATH}/yaml-cpp-config.cmake)
 include_directories(${YAML-CPP_INCLUDE_DIR})
 list(APPEND LIBRARIES ${YAML-CPP_LIBRARIES})
 
-# Setup Boost (used in Yaml-CPP)
-set(Boost_USE_STATIC_LIBS ON)
-find_package(Boost REQUIRED)
-include_directories(${Boost_INCLUDE_DIRS})
-list(APPEND LIBRARIES ${Boost_LIBRARIES})
-
 # Use LibArchive
 if(ENABLE_LIBRARY_DOWNLOAD)
     set(QT_USE_QTNETWORK true)
@@ -193,14 +187,11 @@ if(NOT APPLE)
     )
 endif(NOT APPLE)
 
-if(WIN32)
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-enable-auto-import")
-endif(WIN32)
-
 # Setup Libraries for linking
-target_link_libraries(${PATAGUI_APPLICATION_NAME} ${LIBRARIES})
 add_dependencies(${PATAGUI_APPLICATION_NAME} PythonQt-External)
 add_dependencies(${PATAGUI_APPLICATION_NAME} Yaml-cpp-External)
+target_link_libraries(${PATAGUI_APPLICATION_NAME} ${LIBRARIES})
+
 # {{{ Internationalization
 set (TRANSLATIONS
     lang/songbook_en.ts
