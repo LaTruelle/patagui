@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 
 # Import all required modules
-import json
+import yaml
 import locale
 import os.path
 import textwrap
@@ -23,7 +23,8 @@ from PythonQt import *
 sb_builder = None
 process = None
 stopProcess = False
-#logging.basicConfig(level=logging.DEBUG)
+# logging.basicConfig(level=logging.DEBUG)
+
 
 # Define locale according to user's parameters
 def setLocale():
@@ -33,29 +34,31 @@ def setLocale():
         print("Locale Error")
         # Throw error
 
+
 # Test patacrep version
 def testPatacrep():
     return patacrep.__version__
 
+
 def message(text):
-    CPPprocess.message(text,0)
+    CPPprocess.message(text, 0)
+
 
 # Load songbook and setup datadirs
-def setupSongbook(songbook_path,datadir):
+def setupSongbook(songbook_path, datadir):
     setLocale()
     global sb_builder
     basename = os.path.basename(songbook_path)[:-3]
     # Load songbook from sb file.
     try:
         with patacrep.encoding.open_read(songbook_path) as songbook_file:
-            songbook = json.load(songbook_file)
+            songbook = yaml.load(songbook_file)
         if 'encoding' in songbook:
-            with patacrep.encoding.open_read(
-                songbook_path,
-                encoding=songbook['encoding']
-                ) as songbook_file:
+            with patacrep.encoding.open_read(songbook_path,
+                                             encoding=songbook['encoding'])
+            as songbook_file:
                 songbook = json.load(songbook_file)
-    except Exception as error: # pylint: disable=broad-except
+    except Exception as error:  # pylint: disable=broad-except
         print("Error while loading file '{}'".format(songbook_path))
         print(error)
         # Throw Exception
@@ -83,7 +86,9 @@ def setupSongbook(songbook_path,datadir):
         sb_builder.unsafe = True
     except errors.SongbookError as error:
         print("Error in formation of Songbook Builder")
+        print(error)
         # Deal with error
+
 
 # Wrapper around buildSongbook that manages the threading part
 def build(steps):
@@ -92,16 +97,16 @@ def build(steps):
     stopProcess = False
     process = threading.Thread(target=buildSongbook, args=(steps,))
     try:
-        #logger.info('Starting process')
+        # logger.info('Starting process')
         process.start()
     except threading.ThreadError as error:
-        #logger.warning('process Error occured')
+        # logger.warning('process Error occured')
         message(error)
 
     period = 2
     while process.is_alive():
         # message("it's alive: " + CPPprocess.getBuildState())
-        if CPPprocess.getBuildState() == False:
+        if not CPPprocess.getBuildState():
             try:
                 process.crash()
             except AttributeError as error:
@@ -110,6 +115,7 @@ def build(steps):
         # Check in 2 seconds
         process.join(period)
     message("end build")
+
 
 # Inner function that actually builds the songbook
 def buildSongbook(steps):
@@ -127,6 +133,7 @@ def buildSongbook(steps):
         message(error)
         raise
     # message("Exiting buildSongbook function")
+
 
 def stopBuild():
     message("Terminating process")
