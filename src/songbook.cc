@@ -369,42 +369,56 @@ void Songbook::save(const QString &filename)
 {
     // get the song list in the correct format from the selected songs
     songsFromSelection();
+
+    // Start filling yaml document
+    YAML::Emitter songbook;
+    songbook << YAML::BeginMap;
+
+    // Start book definitions
+    songbook << YAML::Key << "book" << YAML::Value << YAML::BeginMap;
+    songbook << YAML::Key << "pictures" << YAML::Value << "yes";
+    songbook << YAML::Key << "datadir" << YAML::Value
+             << library()->directory().absolutePath().toStdString();
+    songbook << YAML::Key << "lang" << YAML::Value << "en";
+    // TODO Check Template insertion
+    if (!tmpl().isEmpty()) {
+        songbook << YAML::Key << "template" << YAML::Value
+                 << tmpl().toStdString();
+    } else {
+        songbook << YAML::Key << "template" << YAML::Value << "patacrep.tex";
+    }
+    songbook << YAML::EndMap; // End book definitions
+
+    // Start chord parameters
+    songbook << YAML::Key << "chords" << YAML::Value << YAML::BeginMap;
+    songbook << YAML::Key << "repeatchords" << YAML::Value << "no";
+    songbook << YAML::Key << "diagramreminder" << YAML::Value << "all";
+    songbook << YAML::EndMap; // End chord parameters
+
+    // Start songs insertion
+    songbook << YAML::Key << "content" << YAML::Value << YAML::BeginSeq;
+
+    foreach (QString song, songs()) {
+        songbook << song.toStdString();
+    }
+
+    songbook << YAML::EndSeq; // End songs
+    songbook << YAML::EndDoc; // End Document
+
+    // Test YAML document
+    if (!songbook.good())
+    {
+        qWarning() << "Error during write";
+        return;
+    }
+
     // write the songbook
     QFile file(filename);
     if (file.open(QIODevice::WriteOnly | QIODevice::Text)) {
-        // Start Json Objecy and fill it
-        QJsonObject json;
-        // TODO Check Template insertion
-        if (!tmpl().isEmpty()) {
-            json.insert("template", tmpl());
-        } else {
-            json.insert("template", "patacrep.tex");
-        }
-        json.insert("lang", "french");
-        // Book Options
-        QJsonArray bookoptions;
-        bookoptions.append("diagram");
-        // bookoptions.append("lilypond");
-        bookoptions.append("pictures");
-        json.insert("bookoptions", bookoptions);
-        // Authwords
-        QJsonObject authwords;
-        authwords.insert("sep", "");
-        json.insert("authwords", authwords);
-        // Datadirs. For now, only library path, later maybe other paths.
-        json.insert("datadir", library()->directory().absolutePath());
-        // Songs
-        QJsonArray songlist;
-        foreach (QString song, songs()) {
-            songlist.append(song);
-        }
-        json.insert("content", songlist);
-        file.write(QJsonDocument(json).toJson());
-
+        file.write(songbook.c_str());
         file.close();
         setModified(false);
         setFilename(filename);
-
     } else {
         qWarning() << "Could not open File: " + filename;
     }
