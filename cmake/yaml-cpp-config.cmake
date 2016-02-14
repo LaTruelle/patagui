@@ -28,8 +28,7 @@ set(YAML-CPP_LIBRARY Yaml-cpp)
 # Create dummy Yaml-cpp library that depends on real Yaml-cpp in order to have cmake behaving properly without
 # having to resort to a superbuild mechanism.
 add_library(Yaml-cpp STATIC IMPORTED STATIC)
-#set_target_properties(Yaml-cpp PROPERTIES IMPORTED_LOCATION ${YAML-CPP_INSTALL_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}yaml-cppmdd${CMAKE_STATIC_LIBRARY_SUFFIX})
-set_target_properties(Yaml-cpp PROPERTIES IMPORTED_LOCATION ${YAML-CPP_INSTALL_DIR}/libyaml-cppmdd.lib)
+set_target_properties(Yaml-cpp PROPERTIES IMPORTED_LOCATION ${YAML-CPP_INSTALL_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}yaml-cpp${CMAKE_STATIC_LIBRARY_SUFFIX})
 add_dependencies(Yaml-cpp Yaml-cpp-External)
 
 # Used for OSX deployment.
