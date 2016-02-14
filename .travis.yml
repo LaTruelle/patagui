@@ -7,6 +7,12 @@ os:
     - linux
     - osx
 
+python:
+    - "3.5"
+
+compiler:
+    - clang
+
 env:
     - CONFIG=Release
 
