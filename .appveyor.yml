@@ -6,11 +6,13 @@ environment:
     matrix:
     - PLATFORM: x86
       QT5: C:\Qt\5.5\msvc2013
+      PYTHON: "C:\\Python34"
       PYTHON_PATH: C:\Python34
       PYTHON_VERSION: 34
       PYTHON_ARCH: 32
     - PLATFORM: x86_amd64
       QT5: C:\Qt\5.5\msvc2013_64
+      PYTHON: "C:\\Python34-x64"
       PYTHON_PATH: C:\Python34-x64
       PYTHON_VERSION: 34
       PYTHON_ARCH: 64
