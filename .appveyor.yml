@@ -2,7 +2,6 @@ clone_depth: 10
 shallow_clone: true
 
 environment:
-    BOOST_ROOT: C:\Libraries\boost_1_59_0
     matrix:
     - PLATFORM: x86
       QT5: C:\Qt\5.5\msvc2013
