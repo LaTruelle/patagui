@@ -78,8 +78,7 @@ void Patacrep::buildSongbook()
         // Expose Songbook to python
         pythonModule.addObject("songbook", songbook);
         pythonModule.addObject("CPPprocess", this);
-        pythonModule.evalScript("setupSongbook(songbook.filename,'" +
-                                datadirs.first() + "')");
+        pythonModule.evalScript("setupSongbook(songbook.filename)");
         pythonModule.evalScript("build(['clean', 'tex', 'pdf', 'sbx', 'pdf', 'clean'])");
 //        pythonModule.removeVariable("songbook");
         emit(message("Finished Execution", 0));

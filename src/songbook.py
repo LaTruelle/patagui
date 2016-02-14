@@ -2,19 +2,18 @@
 # -*- coding: utf-8 -*-
 
 # Import all required modules
-import yaml
 import locale
 import os.path
-import textwrap
 import sys
 import logging
 import threading
 
 # Import patacrep modules
 from patacrep.build import SongbookBuilder, DEFAULT_STEPS
+from patacrep.utils import yesno
 from patacrep import __version__
 from patacrep import errors
-import patacrep.encoding
+from patacrep.songbook import open_songbook
 
 # Expose C++ to local python
 from PythonQt import *
@@ -45,42 +44,25 @@ def message(text):
 
 
 # Load songbook and setup datadirs
-def setupSongbook(songbook_path, datadir):
+def setupSongbook(songbook_path):
     setLocale()
     global sb_builder
-    basename = os.path.basename(songbook_path)[:-3]
+
     # Load songbook from sb file.
     try:
-        with patacrep.encoding.open_read(songbook_path) as songbook_file:
-            songbook = yaml.load(songbook_file)
-        if 'encoding' in songbook:
-            with patacrep.encoding.open_read(songbook_path,
-                                             encoding=songbook['encoding'])
-            as songbook_file:
-                songbook = json.load(songbook_file)
-    except Exception as error:  # pylint: disable=broad-except
-        print("Error while loading file '{}'".format(songbook_path))
+        songbook = open_songbook(songbook_path)
+        # Setup details in songbook
+        songbook['_cache'] = True
+        songbook['_error'] = "fix"
+    except errors.SongbookError as error:
+        print("Error in formation of Songbook Builder")
         print(error)
-        # Throw Exception
-        return
+        # Deal with error
 
-    # Gathering datadirs
-    datadirs = []
-    if 'datadir' in songbook:
-        # .sg file
-        if isinstance(songbook['datadir'], str):
-            songbook['datadir'] = [songbook['datadir']]
-        datadirs += [
-            os.path.join(
-                os.path.dirname(os.path.abspath(songbook_path)),
-                path
-                )
-            for path in songbook['datadir']
-            ]
     # Default value
-    datadirs.append(os.path.dirname(os.path.abspath(songbook_path)))
-    songbook['datadir'] = datadirs
-    songbook['_basename'] = os.path.basename(songbook_path)[:-3]
+    basename = os.path.splitext(os.path.basename(songbook_path))[0]
+    songbook['_basename'] = basename
+
     try:
         sb_builder = SongbookBuilder(songbook)
         sb_builder.unsafe = True
