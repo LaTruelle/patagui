@@ -1,20 +1,26 @@
-sudo: required
-dist: trusty
-
 language: cpp
-
-os:
-    - linux
-    - osx
 
 python:
     - "3.5"
 
-compiler:
-    - clang
-
 env:
     - CONFIG=Release
+
+matrix:
+    include:
+        - os: linux
+          sudo: required
+          dist: trusty
+          compiler: gcc
+          addons:
+            apt:
+              sources:
+                - ubuntu-toolchain-r-test
+              packages:
+                - g++-5
+          env: COMPILER=g++-5
+        - os: osx
+          compiler: clang
 
 install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
