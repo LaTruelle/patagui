@@ -3,9 +3,6 @@ language: cpp
 python:
     - "3.5"
 
-env:
-    - CONFIG=Release
-
 matrix:
     include:
         - os: linux
@@ -18,9 +15,13 @@ matrix:
                 - ubuntu-toolchain-r-test
               packages:
                 - g++-5
-          env: COMPILER=g++-5
+          env:
+            - COMPILER=g++-5
+            - CONFIG=Release
         - os: osx
           compiler: clang
+          env: CONFIG=Release
+
 
 install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
