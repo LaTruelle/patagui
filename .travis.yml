@@ -8,7 +8,6 @@ matrix:
         - os: linux
           sudo: required
           dist: trusty
-          compiler: gcc
           addons:
             apt:
               sources:
