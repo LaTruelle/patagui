@@ -15,7 +15,7 @@ matrix:
               packages:
                 - g++-5
           env:
-            - COMPILER=g++-5
+            - CC_X=gcc-5 CXX_X=g++-5 
             - CONFIG=Release
         - os: osx
           compiler: clang
