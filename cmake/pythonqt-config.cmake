@@ -16,7 +16,7 @@ ENDIF(NOT QT_QMAKE_EXECUTABLE)
 ExternalProject_Add(PythonQt-External
 PREFIX pythonqt
 # Backup URL in case SVN messes up.
-URL "${CMAKE_CURRENT_SOURCE_DIR}/pythonqt/pythonqt.zip"
+URL "${CMAKE_CURRENT_SOURCE_DIR}/external_libs/pythonqt.zip"
 PATCH_COMMAND ""
 CONFIGURE_COMMAND ${QT_QMAKE_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/pythonqt/src/PythonQt-External/PythonQt.pro
 BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
@@ -34,9 +34,8 @@ set(PYTHONQT_LIBRARY PythonQt)
 
 # Create dummy PythonQtLib that depends on real pythonqt in order to have cmake behaving properly without having to resort
 # to a superbuild mechanism.
-add_library(PythonQt SHARED IMPORTED)
-set_target_properties(PythonQt PROPERTIES IMPORTED_LOCATION ${PYTHONQT_INSTALL_DIR}/lib/${CMAKE_SHARED_MODULE_PREFIX}PythonQt${CMAKE_SHARED_LIBRARY_SUFFIX})
-set_target_properties(PythonQt PROPERTIES IMPORTED_IMPLIB ${PYTHONQT_INSTALL_DIR}/lib/${CMAKE_IMPORT_LIBRARY_PREFIX}PythonQt${CMAKE_IMPORT_LIBRARY_SUFFIX})
+add_library(PythonQt STATIC IMPORTED)
+set_target_properties(PythonQt PROPERTIES IMPORTED_LOCATION ${PYTHONQT_INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}PythonQt${CMAKE_STATIC_LIBRARY_SUFFIX})
 add_dependencies(PythonQt PythonQt-External)
 
 # Used for OSX deployment.

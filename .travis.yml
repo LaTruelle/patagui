@@ -1,14 +1,19 @@
-sudo: required
-dist: trusty
-
 language: cpp
 
-os:
-    - linux
-    - osx
+python:
+    - "3.5"
 
-env:
-    - CONFIG=Release
+matrix:
+    include:
+        - os: linux
+          sudo: required
+          dist: trusty
+          compiler: clang
+          env:
+            - CONFIG=Release
+        - os: osx
+          compiler: clang
+          env: CONFIG=Release
 
 install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
@@ -34,7 +39,7 @@ install:
 
 script:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-        cmake -DCMAKE_BUILD_TYPE=$CONFIG -DCMAKE_PREFIX_PATH=/opt/qt55/lib/cmake .
+        cmake -DCMAKE_BUILD_TYPE=$CONFIG -DCMAKE_PREFIX_PATH=/opt/qt55/lib/cmake -DPYTHON_LIBRARY=/opt/python/3.5.0/lib/libpython3.5m.so -DPYTHON_INCLUDE_DIR=/opt/python/3.5.0/include/python3.5m .
         ;
     else
         cmake -DCMAKE_BUILD_TYPE=$CONFIG -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5/lib/cmake .
@@ -43,12 +48,7 @@ script:
     && make
 
 after_failure:
-  - find /home/travis/build/LaTruelle/patagui/pythonqt/src/PythonQt-External-stamp/ -name "*.log" -print -exec cat {} \;
-  - echo $PATH
-  - python3 -c 'import sys; print(".".join(map(str, sys.version_info[:2])))'
-  - python3.5-config --libs
-  - python3.5-config --includes
-  - python3 --version
-  - which python3
-  - printenv
-
+  - cat /home/travis/build/LaTruelle/patagui/yaml-cpp/src/Yaml-cpp-External-stamp/Yaml-cpp-External-configure-*.log
+  - cat /home/travis/build/LaTruelle/patagui/yaml-cpp/src/Yaml-cpp-External-stamp/Yaml-cpp-External-build-*.log
+  - cat /home/travis/build/LaTruelle/patagui/pythonqt/src/PythonQt-External-stamp/PythonQt-External-configure-*.log
+  - cat /home/travis/build/LaTruelle/patagui/pythonqt/src/PythonQt-External-stamp/PythonQt-External-build-*.log

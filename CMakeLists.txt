@@ -135,6 +135,11 @@ include(${CMAKE_MODULE_PATH}/pythonqt-config.cmake)
 include_directories(${PYTHONQT_INCLUDE_DIR})
 list(APPEND LIBRARIES ${PYTHONQT_LIBRARIES})
 
+# Setup Yaml-cpp
+include(${CMAKE_MODULE_PATH}/yaml-cpp-config.cmake)
+include_directories(${YAML-CPP_INCLUDE_DIR})
+list(APPEND LIBRARIES ${YAML-CPP_LIBRARIES})
+
 # Use LibArchive
 if(ENABLE_LIBRARY_DOWNLOAD)
     set(QT_USE_QTNETWORK true)
@@ -182,13 +187,10 @@ if(NOT APPLE)
     )
 endif(NOT APPLE)
 
-if(WIN32)
-    set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} -Wl,-enable-auto-import")
-endif(WIN32)
-
 # Setup Libraries for linking
-target_link_libraries(${PATAGUI_APPLICATION_NAME} ${LIBRARIES})
 add_dependencies(${PATAGUI_APPLICATION_NAME} PythonQt-External)
+add_dependencies(${PATAGUI_APPLICATION_NAME} Yaml-cpp-External)
+target_link_libraries(${PATAGUI_APPLICATION_NAME} ${LIBRARIES})
 
 # {{{ Internationalization
 set (TRANSLATIONS
@@ -219,7 +221,7 @@ add_custom_target(
 if(GENERATE_MANPAGES)
 
   set(PATAGUI_MAN_SRCS
-    ${SOURCE_DIR}/manpages/patagui.1.txt
+    ${SOURCE_DIR}/manpages/Patagui.1.txt
     )
 
   set(PATAGUI_MAN_LANGS default fr)
