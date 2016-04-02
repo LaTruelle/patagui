@@ -9,8 +9,7 @@ matrix:
           sudo: required
           dist: trusty
           compiler: clang
-          env:
-            - CONFIG=Release
+          env: CONFIG=Release
         - os: osx
           compiler: clang
           env: CONFIG=Release
