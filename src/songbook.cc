@@ -406,8 +406,7 @@ void Songbook::save(const QString &filename)
     songbook << YAML::EndDoc; // End Document
 
     // Test YAML document
-    if (!songbook.good())
-    {
+    if (!songbook.good()) {
         qWarning() << "Error during write";
         return;
     }
@@ -426,6 +425,8 @@ void Songbook::save(const QString &filename)
 
 void Songbook::load(const QString &filename)
 {
+    YAML::Node songbook = YAML::LoadFile(filename.toStdString());
+
     QFile file(filename);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         // Read File
