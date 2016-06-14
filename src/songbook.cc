@@ -24,18 +24,18 @@
 
 #include <QByteArray>
 #include <QFile>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QJsonValue>
 #include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 #include <QVariantList>
 
-#include <QtGroupBoxPropertyBrowser>
 #include <QtAbstractPropertyManager>
+#include <QtGroupBoxPropertyBrowser>
 
 #include "qtpropertymanager.h"
-#include "variant-manager.hh"
 #include "variant-factory.hh"
+#include "variant-manager.hh"
 
 #include "library.hh"
 #include "yaml-cpp/yaml.h"
@@ -397,17 +397,17 @@ void Songbook::save(const QString &filename)
 
     // Start songs insertion
     songbook << YAML::Key << "content" << YAML::Value << YAML::BeginSeq;
-
     foreach (QString song, songs()) {
         songbook << song.toStdString();
     }
-
     songbook << YAML::EndSeq; // End songs
-    songbook << YAML::EndDoc; // End Document
+
+    songbook << YAML::EndMap; // End Document
 
     // Test YAML document
     if (!songbook.good()) {
-        qWarning() << "Error during write";
+        qWarning() << "Error during write:";
+        qWarning() << songbook.GetLastError().c_str();
         return;
     }
 
