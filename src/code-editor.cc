@@ -58,7 +58,10 @@ CodeEditor::CodeEditor(QWidget *parent)
     updateLineNumberAreaWidth(0);
 }
 
-CodeEditor::~CodeEditor() { delete lineNumberArea; }
+CodeEditor::~CodeEditor()
+{
+    delete lineNumberArea;
+}
 
 int CodeEditor::lineNumberAreaWidth()
 {
@@ -144,9 +147,15 @@ void CodeEditor::lineNumberAreaPaintEvent(QPaintEvent *event)
     }
 }
 
-void CodeEditor::setHighlightMode(bool value) { m_highlightMode = value; }
+void CodeEditor::setHighlightMode(bool value)
+{
+    m_highlightMode = value;
+}
 
-bool CodeEditor::highlightMode() const { return m_highlightMode; }
+bool CodeEditor::highlightMode() const
+{
+    return m_highlightMode;
+}
 
 void CodeEditor::setLineNumberMode(bool value)
 {
@@ -157,4 +166,7 @@ void CodeEditor::setLineNumberMode(bool value)
     updateLineNumberAreaWidth(0);
 }
 
-bool CodeEditor::lineNumberMode() const { return m_lineNumberMode; }
+bool CodeEditor::lineNumberMode() const
+{
+    return m_lineNumberMode;
+}

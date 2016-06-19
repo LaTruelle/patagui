@@ -19,15 +19,15 @@
 
 #include "find-replace-dialog.hh"
 
-#include <QPushButton>
-#include <QFormLayout>
 #include <QBoxLayout>
-#include <QComboBox>
 #include <QCheckBox>
-#include <QSettings>
+#include <QComboBox>
 #include <QDialogButtonBox>
-#include <QTextDocument>
+#include <QFormLayout>
 #include <QPlainTextEdit>
+#include <QPushButton>
+#include <QSettings>
+#include <QTextDocument>
 
 #include <QDebug>
 
@@ -83,7 +83,9 @@ FindReplaceDialog::FindReplaceDialog(QWidget *parent)
     readSettings();
 }
 
-FindReplaceDialog::~FindReplaceDialog() {}
+FindReplaceDialog::~FindReplaceDialog()
+{
+}
 
 void FindReplaceDialog::readSettings()
 {
@@ -241,9 +243,15 @@ void FindReplaceDialog::replaceAll()
     m_wrapCheckBox->setChecked(wrapMode);
 }
 
-int FindReplaceDialog::historySize() const { return m_historySize; }
+int FindReplaceDialog::historySize() const
+{
+    return m_historySize;
+}
 
-void FindReplaceDialog::setHistorySize(int value) { m_historySize = value; }
+void FindReplaceDialog::setHistorySize(int value)
+{
+    m_historySize = value;
+}
 
 QTextCursor FindReplaceDialog::cursor() const
 {

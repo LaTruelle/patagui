@@ -19,12 +19,12 @@
 #ifndef __DIAGRAM_AREA_HH__
 #define __DIAGRAM_AREA_HH__
 
-#include <QWidget>
-#include <QModelIndex>
-#include <QString>
 #include <QList>
+#include <QModelIndex>
 #include <QPoint>
+#include <QString>
 #include <QVector>
+#include <QWidget>
 
 #include "chord.hh"
 

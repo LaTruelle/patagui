@@ -19,36 +19,36 @@
 
 #include "song-header-editor.hh"
 
-#include "song-editor.hh"
 #include "chord.hh"
 #include "diagram-area.hh"
 #include "library.hh"
+#include "song-editor.hh"
 
 #include "utils/lineedit.hh"
 
-#include <QStackedLayout>
 #include <QBoxLayout>
-#include <QScrollArea>
-#include <QLabel>
-#include <QSpinBox>
 #include <QComboBox>
+#include <QLabel>
 #include <QPushButton>
+#include <QScrollArea>
+#include <QSpinBox>
+#include <QStackedLayout>
 
-#include <QFileInfo>
-#include <QFile>
-#include <QPixmapCache>
-#include <QPixmap>
-#include <QFileDialog>
 #include <QCompleter>
+#include <QFile>
+#include <QFileDialog>
+#include <QFileInfo>
+#include <QPixmap>
+#include <QPixmapCache>
 
-#include <QUrl>
-#include <QMimeData>
-#include <QDragEnterEvent>
-#include <QDragMoveEvent>
-#include <QDragLeaveEvent>
-#include <QContextMenuEvent>
-#include <QMenu>
 #include <QAction>
+#include <QContextMenuEvent>
+#include <QDragEnterEvent>
+#include <QDragLeaveEvent>
+#include <QDragMoveEvent>
+#include <QMenu>
+#include <QMimeData>
+#include <QUrl>
 
 #include <QDebug>
 
@@ -68,36 +68,52 @@ CSongHeaderEditor::CSongHeaderEditor(QWidget *parent)
 {
 
     // full view
-    // do not translate combobox content since "english", "french" etc is used by LaTeX
-    m_languageComboBox->addItem
-            (QIcon::fromTheme("flag-en", QIcon(":/icons/songbook/22x22/flags/flag-en.png")), "English");
-    m_languageComboBox->addItem
-            (QIcon::fromTheme("flag-fr", QIcon(":/icons/songbook/22x22/flags/flag-fr.png")), "French");
-    m_languageComboBox->addItem
-            (QIcon::fromTheme("flag-es", QIcon(":/icons/songbook/22x22/flags/flag-es.png")), "Spanish");
-    m_languageComboBox->addItem
-            (QIcon::fromTheme("flag-pt", QIcon(":/icons/songbook/22x22/flags/flag-pt.png")), "Portuguese");
-    m_languageComboBox->addItem
-            (QIcon::fromTheme("flag-it", QIcon(":/icons/songbook/22x22/flags/flag-it.png")), "Italian");
+    // do not translate combobox content since "english", "french" etc is used
+    // by LaTeX
+    m_languageComboBox->addItem(
+        QIcon::fromTheme("flag-en",
+                         QIcon(":/icons/songbook/22x22/flags/flag-en.png")),
+        "English");
+    m_languageComboBox->addItem(
+        QIcon::fromTheme("flag-fr",
+                         QIcon(":/icons/songbook/22x22/flags/flag-fr.png")),
+        "French");
+    m_languageComboBox->addItem(
+        QIcon::fromTheme("flag-es",
+                         QIcon(":/icons/songbook/22x22/flags/flag-es.png")),
+        "Spanish");
+    m_languageComboBox->addItem(
+        QIcon::fromTheme("flag-pt",
+                         QIcon(":/icons/songbook/22x22/flags/flag-pt.png")),
+        "Portuguese");
+    m_languageComboBox->addItem(
+        QIcon::fromTheme("flag-it",
+                         QIcon(":/icons/songbook/22x22/flags/flag-it.png")),
+        "Italian");
     m_languageComboBox->setToolTip(tr("Language"));
 
     QLabel *columnCountLabel = new QLabel(this);
-    columnCountLabel->setPixmap(QIcon(":/icons/songbook/22x22/columns.png").pixmap(22,22));
+    columnCountLabel->setPixmap(
+        QIcon(":/icons/songbook/22x22/columns.png").pixmap(22, 22));
     columnCountLabel->setToolTip(tr("Number of columns for the song"));
     m_columnCountSpinBox->setToolTip(tr("Number of columns for the song"));
-    m_columnCountSpinBox->setRange(1,3);
+    m_columnCountSpinBox->setRange(1, 3);
 
     QLabel *capoLabel = new QLabel(this);
-    capoLabel->setPixmap(QIcon(":/icons/songbook/22x22/capo.png").pixmap(22,22));
+    capoLabel->setPixmap(
+        QIcon(":/icons/songbook/22x22/capo.png").pixmap(22, 22));
     capoLabel->setToolTip(tr("Fret on which the capo should be put"));
     m_capoSpinBox->setToolTip(tr("Fret on which the capo should be put"));
-    m_capoSpinBox->setRange(0,9);
+    m_capoSpinBox->setRange(0, 9);
 
     QLabel *transposeLabel = new QLabel(this);
-    transposeLabel->setPixmap(QIcon(":/icons/songbook/22x22/transpose.png").pixmap(22,22));
-    transposeLabel->setToolTip(tr("Number of half-steps by which chords are transposed"));
-    m_transposeSpinBox->setToolTip(tr("Number of half-steps by which chords are transposed"));
-    m_transposeSpinBox->setRange(-14,14);
+    transposeLabel->setPixmap(
+        QIcon(":/icons/songbook/22x22/transpose.png").pixmap(22, 22));
+    transposeLabel->setToolTip(
+        tr("Number of half-steps by which chords are transposed"));
+    m_transposeSpinBox->setToolTip(
+        tr("Number of half-steps by which chords are transposed"));
+    m_transposeSpinBox->setRange(-14, 14);
 
     m_titleLineEdit->setMinimumWidth(150);
     m_titleLineEdit->setToolTip(tr("Song title"));
@@ -110,26 +126,25 @@ CSongHeaderEditor::CSongHeaderEditor(QWidget *parent)
     m_urlLineEdit->setMinimumWidth(150);
     m_urlLineEdit->setToolTip(tr("Artist website"));
 
-    connect(m_titleLineEdit, SIGNAL(textChanged(const QString&)),
-            SLOT(onTextEdited(const QString&)));
-    connect(m_artistLineEdit, SIGNAL(textChanged(const QString&)),
-            SLOT(onTextEdited(const QString&)));
-    connect(m_albumLineEdit, SIGNAL(textChanged(const QString&)),
-            SLOT(onTextEdited(const QString&)));
-    connect(m_originalSongLineEdit, SIGNAL(textChanged(const QString&)),
-            SLOT(onTextEdited(const QString&)));
-    connect(m_urlLineEdit, SIGNAL(textChanged(const QString&)),
-            SLOT(onTextEdited(const QString&)));
-    connect(m_languageComboBox, SIGNAL(currentIndexChanged(const QString&)),
-            SLOT(onIndexChanged(const QString&)));
+    connect(m_titleLineEdit, SIGNAL(textChanged(const QString &)),
+            SLOT(onTextEdited(const QString &)));
+    connect(m_artistLineEdit, SIGNAL(textChanged(const QString &)),
+            SLOT(onTextEdited(const QString &)));
+    connect(m_albumLineEdit, SIGNAL(textChanged(const QString &)),
+            SLOT(onTextEdited(const QString &)));
+    connect(m_originalSongLineEdit, SIGNAL(textChanged(const QString &)),
+            SLOT(onTextEdited(const QString &)));
+    connect(m_urlLineEdit, SIGNAL(textChanged(const QString &)),
+            SLOT(onTextEdited(const QString &)));
+    connect(m_languageComboBox, SIGNAL(currentIndexChanged(const QString &)),
+            SLOT(onIndexChanged(const QString &)));
     connect(m_columnCountSpinBox, SIGNAL(valueChanged(int)),
             SLOT(onValueChanged(int)));
     connect(m_capoSpinBox, SIGNAL(valueChanged(int)),
             SLOT(onValueChanged(int)));
     connect(m_transposeSpinBox, SIGNAL(valueChanged(int)),
             SLOT(onValueChanged(int)));
-    connect(m_coverLabel, SIGNAL(coverChanged()),
-            SLOT(onCoverChanged()));
+    connect(m_coverLabel, SIGNAL(coverChanged()), SLOT(onCoverChanged()));
 
     QBoxLayout *additionalInformationLayout = new QHBoxLayout();
     additionalInformationLayout->setContentsMargins(1, 1, 1, 1);
@@ -161,7 +176,7 @@ CSongHeaderEditor::CSongHeaderEditor(QWidget *parent)
     connect(m_diagramArea, SIGNAL(contentsChanged()),
             SLOT(onDiagramsChanged()));
 
-    QScrollArea* diagramsScrollArea = new QScrollArea;
+    QScrollArea *diagramsScrollArea = new QScrollArea;
     diagramsScrollArea->setWidget(m_diagramArea);
     diagramsScrollArea->setBackgroundRole(QPalette::Dark);
     diagramsScrollArea->setWidgetResizable(true);
@@ -170,7 +185,8 @@ CSongHeaderEditor::CSongHeaderEditor(QWidget *parent)
     QPushButton *toMiniViewButton = new QPushButton;
     toMiniViewButton->setFlat(true);
     toMiniViewButton->setToolTip(tr("Mini view mode"));
-    toMiniViewButton->setIcon(QIcon::fromTheme("go-up", QIcon(":/icons/songbook/48x48/fold.png")));
+    toMiniViewButton->setIcon(
+        QIcon::fromTheme("go-up", QIcon(":/icons/songbook/48x48/fold.png")));
     connect(toMiniViewButton, SIGNAL(clicked()), this, SLOT(toggleView()));
     toMiniViewLayout->addWidget(toMiniViewButton);
     toMiniViewLayout->addStretch();
@@ -188,7 +204,8 @@ CSongHeaderEditor::CSongHeaderEditor(QWidget *parent)
     QPushButton *toFullViewButton = new QPushButton;
     toFullViewButton->setFlat(true);
     toFullViewButton->setToolTip(tr("Full view mode"));
-    toFullViewButton->setIcon(QIcon::fromTheme("go-down", QIcon(":/icons/songbook/48x48/unfold.png")));
+    toFullViewButton->setIcon(QIcon::fromTheme(
+        "go-down", QIcon(":/icons/songbook/48x48/unfold.png")));
     connect(toFullViewButton, SIGNAL(clicked()), this, SLOT(toggleView()));
     toFullViewLayout->addWidget(toFullViewButton);
     toFullViewLayout->addStretch();
@@ -196,11 +213,14 @@ CSongHeaderEditor::CSongHeaderEditor(QWidget *parent)
     // mini view
     QWidget *miniView = new QWidget(this);
     QLabel *miniTitle = new QLabel(m_titleLineEdit->text());
-    connect(m_titleLineEdit, SIGNAL(textChanged(const QString &)), miniTitle, SLOT(setText(const QString &)));
+    connect(m_titleLineEdit, SIGNAL(textChanged(const QString &)), miniTitle,
+            SLOT(setText(const QString &)));
     QLabel *miniArtist = new QLabel(m_artistLineEdit->text());
-    connect(m_artistLineEdit, SIGNAL(textChanged(const QString &)), miniArtist, SLOT(setText(const QString &)));
+    connect(m_artistLineEdit, SIGNAL(textChanged(const QString &)), miniArtist,
+            SLOT(setText(const QString &)));
     QLabel *miniCover = new QLabel;
-    connect(m_coverLabel, SIGNAL(miniCoverChanged(const QPixmap &)), miniCover, SLOT(setPixmap(const QPixmap &)));
+    connect(m_coverLabel, SIGNAL(miniCoverChanged(const QPixmap &)), miniCover,
+            SLOT(setPixmap(const QPixmap &)));
 
     QBoxLayout *miniViewLayout = new QHBoxLayout;
     miniViewLayout->setContentsMargins(4, 0, 4, 0);
@@ -229,9 +249,8 @@ CSongHeaderEditor::CSongHeaderEditor(QWidget *parent)
 
 CSongHeaderEditor::~CSongHeaderEditor()
 {
-    delete  m_diagramArea;
+    delete m_diagramArea;
 }
-
 
 QSize CSongHeaderEditor::sizeHint() const
 {
@@ -240,21 +259,18 @@ QSize CSongHeaderEditor::sizeHint() const
 
 void CSongHeaderEditor::toggleView()
 {
-    if (m_viewMode == FullViewMode)
-    {
+    if (m_viewMode == FullViewMode) {
         m_viewMode = MiniViewMode;
         m_stackedLayout->setCurrentIndex(0);
         setMaximumHeight(30);
-    }
-    else if (m_viewMode == MiniViewMode)
-    {
+    } else if (m_viewMode == MiniViewMode) {
         m_viewMode = FullViewMode;
         m_stackedLayout->setCurrentIndex(1);
         setMaximumHeight(150);
     }
 }
 
-Song & CSongHeaderEditor::song()
+Song &CSongHeaderEditor::song()
 {
     return m_song;
 }
@@ -265,12 +281,12 @@ void CSongHeaderEditor::setSong(const Song &song)
     update();
 }
 
-LineEdit * CSongHeaderEditor::titleLineEdit() const
+LineEdit *CSongHeaderEditor::titleLineEdit() const
 {
     return m_titleLineEdit;
 }
 
-LineEdit * CSongHeaderEditor::artistLineEdit() const
+LineEdit *CSongHeaderEditor::artistLineEdit() const
 {
     return m_artistLineEdit;
 }
@@ -322,7 +338,8 @@ void CSongHeaderEditor::update()
         m_urlLineEdit->setText(song().url);
 
     QString language = QLocale::languageToString(song().locale.language());
-    m_languageComboBox->setCurrentIndex(m_languageComboBox->findText(language, Qt::MatchContains));
+    m_languageComboBox->setCurrentIndex(
+        m_languageComboBox->findText(language, Qt::MatchContains));
 
     if (song().columnCount < 1)
         song().columnCount = 2;
@@ -335,42 +352,34 @@ void CSongHeaderEditor::update()
     m_coverLabel->update();
 
     QString gtab;
-    foreach (gtab, song().gtabs)
-    {
+    foreach (gtab, song().gtabs) {
         m_diagramArea->addDiagram(gtab);
     }
 
     QString utab;
-    foreach (utab, song().utabs)
-    {
+    foreach (utab, song().utabs) {
         m_diagramArea->addDiagram(utab);
     }
 }
 
 void CSongHeaderEditor::onIndexChanged(const QString &text)
 {
-    song().locale = QLocale(Song::languageFromString(text.toLower()), QLocale::AnyCountry);
+    song().locale =
+        QLocale(Song::languageFromString(text.toLower()), QLocale::AnyCountry);
     emit(languageChanged(song().locale));
     emit(contentsChanged());
 }
 
 void CSongHeaderEditor::onValueChanged(int value)
 {
-    QSpinBox *currentSpinBox = qobject_cast< QSpinBox* >(sender());
-    if (currentSpinBox == m_columnCountSpinBox)
-    {
+    QSpinBox *currentSpinBox = qobject_cast<QSpinBox *>(sender());
+    if (currentSpinBox == m_columnCountSpinBox) {
         song().columnCount = value;
-    }
-    else if (currentSpinBox == m_capoSpinBox)
-    {
+    } else if (currentSpinBox == m_capoSpinBox) {
         song().capo = value;
-    }
-    else if (currentSpinBox == m_transposeSpinBox)
-    {
+    } else if (currentSpinBox == m_transposeSpinBox) {
         song().transpose = value;
-    }
-    else
-    {
+    } else {
         qWarning() << "CSongHeaderEditor::onValueChanged unknow sender";
         return;
     }
@@ -380,29 +389,18 @@ void CSongHeaderEditor::onValueChanged(int value)
 
 void CSongHeaderEditor::onTextEdited(const QString &text)
 {
-    QLineEdit *currentLineEdit = qobject_cast< QLineEdit* >(sender());
-    if (currentLineEdit == m_titleLineEdit)
-    {
+    QLineEdit *currentLineEdit = qobject_cast<QLineEdit *>(sender());
+    if (currentLineEdit == m_titleLineEdit) {
         song().title = text;
-    }
-    else if (currentLineEdit == m_artistLineEdit)
-    {
+    } else if (currentLineEdit == m_artistLineEdit) {
         song().artist = text;
-    }
-    else if (currentLineEdit == m_albumLineEdit)
-    {
+    } else if (currentLineEdit == m_albumLineEdit) {
         song().album = text;
-    }
-    else if (currentLineEdit == m_originalSongLineEdit)
-    {
+    } else if (currentLineEdit == m_originalSongLineEdit) {
         song().originalSong = text;
-    }
-    else if (currentLineEdit == m_urlLineEdit)
-    {
+    } else if (currentLineEdit == m_urlLineEdit) {
         song().url = QString("http://%1").arg(text);
-    }
-    else
-    {
+    } else {
         qWarning() << "CSongHeaderEditor::onTextEdited unknow sender";
         return;
     }
@@ -414,8 +412,7 @@ void CSongHeaderEditor::onDiagramsChanged()
 {
     song().gtabs = QStringList();
     song().utabs = QStringList();
-    foreach (Chord *chord, m_diagramArea->chords())
-    {
+    foreach (Chord *chord, m_diagramArea->chords()) {
         if (chord->instrument() == Chord::Guitar)
             song().gtabs << chord->toString();
         else if (chord->instrument() == Chord::Ukulele)
@@ -430,7 +427,7 @@ void CSongHeaderEditor::onCoverChanged()
     emit(contentsChanged());
 }
 
-const QImage & CSongHeaderEditor::cover()
+const QImage &CSongHeaderEditor::cover()
 {
     return m_coverLabel->cover();
 }
@@ -438,11 +435,10 @@ const QImage & CSongHeaderEditor::cover()
 //------------------------------------------------------------------------------
 
 CoverDropArea::CoverDropArea(CSongHeaderEditor *parent)
-    : QLabel(parent)
-    , m_parent(parent)
+    : QLabel(parent), m_parent(parent)
 {
-    setMinimumSize(132,132);
-    setMaximumSize(132,132);
+    setMinimumSize(132, 132);
+    setMaximumSize(132, 132);
     setFrameStyle(QFrame::Raised | QFrame::Panel);
     setLineWidth(3);
     setAlignment(Qt::AlignCenter);
@@ -470,14 +466,13 @@ void CoverDropArea::dropEvent(QDropEvent *event)
 {
     const QMimeData *mimeData = event->mimeData();
 
-    if (mimeData->hasUrls())
-    {
+    if (mimeData->hasUrls()) {
         QUrl url(mimeData->urls()[0]);
         m_filename = url.toLocalFile().trimmed();
         update();
-    }
-    else
-        qWarning() << tr("CoverDropArea::dropEvent cannot display dropped data");
+    } else
+        qWarning() << tr(
+            "CoverDropArea::dropEvent cannot display dropped data");
 
     setBackgroundRole(QPalette::Dark);
     event->acceptProposedAction();
@@ -497,47 +492,45 @@ void CoverDropArea::clear()
 
 void CoverDropArea::update()
 {
-    if (m_filename.isEmpty() && !song().coverPath.isEmpty() && !song().coverName.isEmpty())
-        m_filename = QString("%1/%2.jpg").arg(song().coverPath).arg(song().coverName);
+    if (m_filename.isEmpty() && !song().coverPath.isEmpty() &&
+        !song().coverName.isEmpty())
+        m_filename =
+            QString("%1/%2.jpg").arg(song().coverPath).arg(song().coverName);
 
     // display the cover art
     QPixmap pixmap;
     QFileInfo file = QFileInfo(m_filename);
-    if (file.exists())
-    {
+    if (file.exists()) {
         song().coverPath = file.absolutePath();
         song().coverName = file.baseName();
-        if (!QPixmapCache::find(file.baseName()+"-full", &pixmap))
-        {
+        if (!QPixmapCache::find(file.baseName() + "-full", &pixmap)) {
             setCover(file.filePath());
             pixmap = QPixmap::fromImage(cover());
-            QPixmapCache::insert(file.baseName()+"-full", pixmap);
+            QPixmapCache::insert(file.baseName() + "-full", pixmap);
         }
-    }
-    else
-    {
+    } else {
         song().coverPath = QString();
         song().coverName = QString();
-        if (!QPixmapCache::find("cover-missing-full", &pixmap))
-        {
-            pixmap = QIcon::fromTheme("image-missing", QIcon(":/icons/tango/128x128/status/image-missing.png")).pixmap(115, 115);
+        if (!QPixmapCache::find("cover-missing-full", &pixmap)) {
+            pixmap =
+                QIcon::fromTheme(
+                    "image-missing",
+                    QIcon(":/icons/tango/128x128/status/image-missing.png"))
+                    .pixmap(115, 115);
             QPixmapCache::insert("cover-missing-full", pixmap);
         }
     }
     setPixmap(pixmap);
     emit(coverChanged());
-    emit(miniCoverChanged(pixmap.scaled(28,28)));
+    emit(miniCoverChanged(pixmap.scaled(28, 28)));
 }
 
 void CoverDropArea::selectCover()
 {
-    QString filename = QFileDialog::getOpenFileName(this,
-                                                    tr("Select cover"),
-                                                    song().coverPath,
-                                                    tr("Images (*.jpg)"));
+    QString filename = QFileDialog::getOpenFileName(
+        this, tr("Select cover"), song().coverPath, tr("Images (*.jpg)"));
 
-    if ( !filename.isEmpty() && filename != m_filename )
-    {
+    if (!filename.isEmpty() && filename != m_filename) {
         m_filename = filename;
         update();
     }
@@ -556,7 +549,6 @@ void CoverDropArea::mouseReleaseEvent(QMouseEvent *event)
     selectCover();
 }
 
-
 void CoverDropArea::contextMenuEvent(QContextMenuEvent *event)
 {
     QMenu *menu = new QMenu(this);
@@ -568,24 +560,24 @@ void CoverDropArea::contextMenuEvent(QContextMenuEvent *event)
     delete menu;
 }
 
-CSongHeaderEditor * CoverDropArea::parent() const
+CSongHeaderEditor *CoverDropArea::parent() const
 {
     if (!m_parent)
         qWarning() << tr("CoverDropArea:: invalid parent");
     return m_parent;
 }
 
-void CoverDropArea::setParent(CSongHeaderEditor * parent)
+void CoverDropArea::setParent(CSongHeaderEditor *parent)
 {
     m_parent = parent;
 }
 
-Song & CoverDropArea::song()
+Song &CoverDropArea::song()
 {
     return parent()->song();
 }
 
-const QImage & CoverDropArea::cover()
+const QImage &CoverDropArea::cover()
 {
     return m_cover;
 }
@@ -602,7 +594,8 @@ void CoverDropArea::clearCover()
 void CoverDropArea::setCover(const QImage &cover)
 {
     if (!cover.isNull())
-        m_cover = cover.scaled(115, 115, Qt::KeepAspectRatio, Qt::SmoothTransformation);
+        m_cover = cover.scaled(115, 115, Qt::KeepAspectRatio,
+                               Qt::SmoothTransformation);
 }
 
 void CoverDropArea::setCover(const QString &path)

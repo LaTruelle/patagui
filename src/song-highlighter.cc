@@ -79,12 +79,12 @@ const QStringList SongHighlighter::_delimiters(QStringList()
                                                << "\\\\beginscripture"
                                                << "\\\\endscripture");
 
-const QColor SongHighlighter::_keywords1Color(_TangoOrange3); // orange
-const QColor SongHighlighter::_keywords2Color(_TangoScarletRed3); // red
+const QColor SongHighlighter::_keywords1Color(_TangoOrange3);       // orange
+const QColor SongHighlighter::_keywords2Color(_TangoScarletRed3);   // red
 const QColor SongHighlighter::_environmentsColor(_TangoChameleon3); // green
-const QColor SongHighlighter::_commentsColor(_TangoAluminium4); // grey
-const QColor SongHighlighter::_quotesColor(_TangoPlum3); // violet
-const QColor SongHighlighter::_chordsColor(_TangoSkyBlue3); // blue
+const QColor SongHighlighter::_commentsColor(_TangoAluminium4);     // grey
+const QColor SongHighlighter::_quotesColor(_TangoPlum3);            // violet
+const QColor SongHighlighter::_chordsColor(_TangoSkyBlue3);         // blue
 
 SongHighlighter::SongHighlighter(QTextDocument *parent)
     : QSyntaxHighlighter(parent)
@@ -273,5 +273,8 @@ bool SongHighlighter::isSpellCheckActive() const
     return m_isSpellCheckActive;
 }
 
-Hunspell *SongHighlighter::checker() const { return m_checker; }
+Hunspell *SongHighlighter::checker() const
+{
+    return m_checker;
+}
 #endif // ENABLE_SPELLCHECK

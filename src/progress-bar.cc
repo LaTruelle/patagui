@@ -18,9 +18,9 @@
 //******************************************************************************
 #include "progress-bar.hh"
 
+#include <QBoxLayout>
 #include <QProgressBar>
 #include <QToolButton>
-#include <QBoxLayout>
 
 ProgressBar::ProgressBar(QWidget *parent)
     : QWidget(parent)
@@ -77,8 +77,17 @@ void ProgressBar::setRange(int start, int stop)
     m_progressBar->setRange(start, stop);
 }
 
-void ProgressBar::setValue(int value) { m_progressBar->setValue(value); }
+void ProgressBar::setValue(int value)
+{
+    m_progressBar->setValue(value);
+}
 
-bool ProgressBar::isCancelable() const { return m_cancelable; }
+bool ProgressBar::isCancelable() const
+{
+    return m_cancelable;
+}
 
-void ProgressBar::setCancelable(bool value) { m_cancelable = value; }
+void ProgressBar::setCancelable(bool value)
+{
+    m_cancelable = value;
+}

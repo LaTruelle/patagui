@@ -20,14 +20,14 @@
 #ifndef __LIBRARY_HH__
 #define __LIBRARY_HH__
 
-#include "song.hh"
 #include "singleton.hh"
+#include "song.hh"
 
 #include <QAbstractTableModel>
-#include <QString>
 #include <QDir>
 #include <QLocale>
 #include <QMetaType>
+#include <QString>
 
 class QAbstractListModel;
 class QStringListModel;
@@ -119,7 +119,7 @@ public:
     void setDirectory(const QDir &directory);
 
     /*!
-    Returns the list of available templates (*.tmpl files).
+    Returns the list of available templates (*.tex files).
   */
     QStringList templates() const;
 

@@ -406,6 +406,7 @@ void Songbook::save(const QString &filename)
 
     // Test YAML document
     if (!songbook.good()) {
+        // TODO: Deal with error
         qWarning() << "Error during write:";
         qWarning() << songbook.GetLastError().c_str();
         return;

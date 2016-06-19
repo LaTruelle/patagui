@@ -50,10 +50,7 @@ class LineEdit : public QLineEdit
     Q_PROPERTY(QString inactiveText READ inactiveText WRITE setInactiveText)
 
 public:
-    enum WidgetPosition {
-        LeftSide,
-        RightSide
-    };
+    enum WidgetPosition { LeftSide, RightSide };
 
     LineEdit(QWidget *parent = 0);
     LineEdit(const QString &contents, QWidget *parent = 0);
@@ -87,4 +84,3 @@ private:
 };
 
 #endif // LINEEDIT_HH
-

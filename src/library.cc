@@ -18,18 +18,18 @@
 //******************************************************************************
 #include "library.hh"
 
+#include "conflict-dialog.hh"
 #include "main-window.hh"
 #include "progress-bar.hh"
-#include "conflict-dialog.hh"
 
-#include <QStringListModel>
-#include <QDirIterator>
-#include <QPixmapCache>
-#include <QStatusBar>
 #include <QDesktopServices>
-#include <QSettings>
-#include <QMessageBox>
+#include <QDirIterator>
 #include <QMap>
+#include <QMessageBox>
+#include <QPixmapCache>
+#include <QSettings>
+#include <QStatusBar>
+#include <QStringListModel>
 
 #include <QDebug>
 
@@ -69,7 +69,10 @@ Library::Library()
     connect(this, SIGNAL(directoryChanged(const QDir &)), SLOT(update()));
 }
 
-Library::~Library() { m_songs.clear(); }
+Library::~Library()
+{
+    m_songs.clear();
+}
 
 void Library::readSettings()
 {
@@ -95,7 +98,10 @@ bool Library::checkSongbookPath(const QString &path)
     return directory.exists() && directory.exists("songs");
 }
 
-QDir Library::directory() const { return m_directory; }
+QDir Library::directory() const
+{
+    return m_directory;
+}
 
 void Library::setDirectory(const QString &directory)
 {
@@ -117,7 +123,10 @@ void Library::setDirectory(const QDir &directory)
     }
 }
 
-QStringList Library::templates() const { return m_templates; }
+QStringList Library::templates() const
+{
+    return m_templates;
+}
 
 QAbstractListModel *Library::completionModel() const
 {
@@ -301,9 +310,15 @@ void Library::update()
     emit(wasModified());
 }
 
-int Library::rowCount(const QModelIndex &) const { return m_songs.size(); }
+int Library::rowCount(const QModelIndex &) const
+{
+    return m_songs.size();
+}
 
-int Library::columnCount(const QModelIndex &) const { return 7; }
+int Library::columnCount(const QModelIndex &) const
+{
+    return 7;
+}
 
 void Library::addSong(const Song &song, bool resetModel)
 {
@@ -332,7 +347,10 @@ void Library::addSongs(const QStringList &paths)
     endResetModel();
 }
 
-void Library::addSong(const QString &path) { m_songs << Song::fromFile(path); }
+void Library::addSong(const QString &path)
+{
+    m_songs << Song::fromFile(path);
+}
 
 void Library::removeSong(const QString &path)
 {
@@ -484,16 +502,25 @@ QString Library::pathToSong(Song &song) const
     return pathToSong(song.artist, song.title);
 }
 
-ProgressBar *Library::progressBar() const { return parent()->progressBar(); }
+ProgressBar *Library::progressBar() const
+{
+    return parent()->progressBar();
+}
 
 void Library::showMessage(const QString &message)
 {
     parent()->statusBar()->showMessage(message);
 }
 
-MainWindow *Library::parent() const { return m_parent; }
+MainWindow *Library::parent() const
+{
+    return m_parent;
+}
 
-void Library::setParent(MainWindow *parent) { m_parent = parent; }
+void Library::setParent(MainWindow *parent)
+{
+    m_parent = parent;
+}
 
 QString Library::checkPath(const QString &path)
 {

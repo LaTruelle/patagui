@@ -19,8 +19,8 @@
 #ifndef __SONG_CODE_EDITOR_HH__
 #define __SONG_CODE_EDITOR_HH__
 
-#include "config.hh"
 #include "code-editor.hh"
+#include "config.hh"
 
 #include <QTextCursor>
 

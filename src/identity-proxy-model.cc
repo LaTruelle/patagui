@@ -23,7 +23,9 @@ IdentityProxyModel::IdentityProxyModel(QObject *parent)
 {
 }
 
-IdentityProxyModel::~IdentityProxyModel() {}
+IdentityProxyModel::~IdentityProxyModel()
+{
+}
 
 QModelIndex IdentityProxyModel::mapFromSource(const QModelIndex &index) const
 {
@@ -291,11 +293,20 @@ void IdentityProxyModel::sourceLayoutAboutToBeChanged()
     layoutAboutToBeChanged();
 }
 
-void IdentityProxyModel::sourceLayoutChanged() { layoutChanged(); }
+void IdentityProxyModel::sourceLayoutChanged()
+{
+    layoutChanged();
+}
 
-void IdentityProxyModel::sourceModelAboutToBeReset() { beginResetModel(); }
+void IdentityProxyModel::sourceModelAboutToBeReset()
+{
+    beginResetModel();
+}
 
-void IdentityProxyModel::sourceModelReset() { endResetModel(); }
+void IdentityProxyModel::sourceModelReset()
+{
+    endResetModel();
+}
 
 void IdentityProxyModel::sourceRowsAboutToBeInserted(const QModelIndex &parent,
                                                      int start, int end)

@@ -20,9 +20,9 @@
 #define __PREFERENCES_HH__
 
 #include <QDialog>
-#include <QWidget>
-#include <QScrollArea>
 #include <QPushButton>
+#include <QScrollArea>
+#include <QWidget>
 
 #include "config.hh"
 

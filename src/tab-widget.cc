@@ -20,8 +20,8 @@
 #include "tab-widget.hh"
 
 #include <QAction>
-#include <QTabBar>
 #include <QMouseEvent>
+#include <QTabBar>
 
 #include <QDebug>
 
@@ -51,7 +51,9 @@ TabWidget::TabWidget(QWidget *parent)
     addAction(action);
 }
 
-TabWidget::~TabWidget() {}
+TabWidget::~TabWidget()
+{
+}
 
 TabWidget::SelectionBehavior TabWidget::selectionBehaviorOnAdd() const
 {
@@ -63,7 +65,10 @@ void TabWidget::setSelectionBehaviorOnAdd(TabWidget::SelectionBehavior behavior)
     m_selectionBehaviorOnAdd = behavior;
 }
 
-void TabWidget::closeTab() { emit(tabCloseRequested(currentIndex())); }
+void TabWidget::closeTab()
+{
+    emit(tabCloseRequested(currentIndex()));
+}
 
 void TabWidget::closeTab(int index)
 {
@@ -100,14 +105,14 @@ void TabWidget::updateTabBarVisibility()
 void TabWidget::next()
 {
     if (currentIndex() == count() - 1) // last tab
-        setCurrentIndex(0); // first tab
+        setCurrentIndex(0);            // first tab
     else
         setCurrentIndex(currentIndex() + 1);
 }
 
 void TabWidget::prev()
 {
-    if (currentIndex() == 0) // first tab
+    if (currentIndex() == 0)          // first tab
         setCurrentIndex(count() - 1); // last tab
     else
         setCurrentIndex(currentIndex() - 1);
@@ -124,9 +129,13 @@ void TabWidget::changeTabText(const QString &text)
 
 //----------------------------------------------------------------------------
 
-TabBar::TabBar(QWidget *parent) : QTabBar(parent) {}
+TabBar::TabBar(QWidget *parent) : QTabBar(parent)
+{
+}
 
-TabBar::~TabBar() {}
+TabBar::~TabBar()
+{
+}
 
 void TabBar::mouseReleaseEvent(QMouseEvent *event)
 {

@@ -31,13 +31,12 @@
 
 #include <qevent.h>
 #include <qlayout.h>
-#include <qstyleoption.h>
 #include <qpainter.h>
+#include <qstyleoption.h>
 
 #include <qdebug.h>
 
-SideWidget::SideWidget(QWidget *parent)
-    : QWidget(parent)
+SideWidget::SideWidget(QWidget *parent) : QWidget(parent)
 {
 }
 
@@ -49,9 +48,7 @@ bool SideWidget::event(QEvent *event)
 }
 
 LineEdit::LineEdit(QWidget *parent)
-    : QLineEdit(parent)
-    , m_leftLayout(0)
-    , m_rightLayout(0)
+    : QLineEdit(parent), m_leftLayout(0), m_rightLayout(0)
 {
     init();
 }
@@ -87,14 +84,15 @@ void LineEdit::init()
         m_rightLayout->setDirection(QBoxLayout::LeftToRight);
     m_rightLayout->setContentsMargins(0, 0, 0, 0);
 
-    QSpacerItem *horizontalSpacer = new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
+    QSpacerItem *horizontalSpacer =
+        new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum);
     m_rightLayout->addItem(horizontalSpacer);
 
     setWidgetSpacing(3);
-    connect(m_leftWidget, SIGNAL(sizeHintChanged()),
-            this, SLOT(updateTextMargins()));
-    connect(m_rightWidget, SIGNAL(sizeHintChanged()),
-            this, SLOT(updateTextMargins()));
+    connect(m_leftWidget, SIGNAL(sizeHintChanged()), this,
+            SLOT(updateTextMargins()));
+    connect(m_rightWidget, SIGNAL(sizeHintChanged()), this,
+            SLOT(updateTextMargins()));
 }
 
 bool LineEdit::event(QEvent *event)
@@ -175,7 +173,8 @@ void LineEdit::updateSideWidgetLocations()
 {
     QStyleOptionFrameV2 opt;
     initStyleOption(&opt);
-    QRect textRect = style()->subElementRect(QStyle::SE_LineEditContents, &opt, this);
+    QRect textRect =
+        style()->subElementRect(QStyle::SE_LineEditContents, &opt, this);
     int spacing = m_rightLayout->spacing();
     textRect.adjust(spacing, 0, -spacing, 0);
 
@@ -218,15 +217,17 @@ void LineEdit::paintEvent(QPaintEvent *event)
     if (text().isEmpty() && !m_inactiveText.isEmpty() && !hasFocus()) {
         QStyleOptionFrameV2 panel;
         initStyleOption(&panel);
-        QRect textRect = style()->subElementRect(QStyle::SE_LineEditContents, &panel, this);
+        QRect textRect =
+            style()->subElementRect(QStyle::SE_LineEditContents, &panel, this);
         int horizontalMargin = 2;
         textRect.adjust(horizontalMargin, 0, 0, 0);
         int left = textMargin(LineEdit::LeftSide);
         int right = textMargin(LineEdit::RightSide);
         textRect.adjust(left, 0, -right, 0);
         QPainter painter(this);
-        painter.setPen(palette().brush(QPalette::Disabled, QPalette::Text).color());
-        painter.drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter, m_inactiveText);
+        painter.setPen(
+            palette().brush(QPalette::Disabled, QPalette::Text).color());
+        painter.drawText(textRect, Qt::AlignLeft | Qt::AlignVCenter,
+                         m_inactiveText);
     }
 }
-

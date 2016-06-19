@@ -20,8 +20,8 @@
 #define __HIGHLIGHTER_HH__
 
 #include "config.hh"
-#include <QSyntaxHighlighter>
 #include <QHash>
+#include <QSyntaxHighlighter>
 #include <QTextCharFormat>
 
 class QTextDocument;

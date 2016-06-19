@@ -18,10 +18,10 @@
 #ifndef __SONG_SORT_FILTER_PROXY_MODEL_HH__
 #define __SONG_SORT_FILTER_PROXY_MODEL_HH__
 
+#include <QLocale>
+#include <QSet>
 #include <QSortFilterProxyModel>
 #include <QString>
-#include <QSet>
-#include <QLocale>
 #include <QStringList>
 
 /*!

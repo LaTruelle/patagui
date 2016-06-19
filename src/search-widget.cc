@@ -19,12 +19,12 @@
 
 #include "search-widget.hh"
 
-#include <QPushButton>
-#include <QLineEdit>
 #include <QBoxLayout>
+#include <QLineEdit>
+#include <QPlainTextEdit>
+#include <QPushButton>
 #include <QSettings>
 #include <QTextDocument>
-#include <QPlainTextEdit>
 
 #include <QDebug>
 
@@ -83,7 +83,10 @@ SearchWidget::~SearchWidget()
     delete m_findNextButton;
 }
 
-void SearchWidget::setFocus() { m_findLineEdit->setFocus(); }
+void SearchWidget::setFocus()
+{
+    m_findLineEdit->setFocus();
+}
 
 void SearchWidget::keyPressEvent(QKeyEvent *event)
 {
@@ -132,4 +135,7 @@ void SearchWidget::find()
         m_editor->setStatusTip(tr("\"%1\" not found").arg(expr));
 }
 
-void SearchWidget::setTextEditor(QPlainTextEdit *editor) { m_editor = editor; }
+void SearchWidget::setTextEditor(QPlainTextEdit *editor)
+{
+    m_editor = editor;
+}

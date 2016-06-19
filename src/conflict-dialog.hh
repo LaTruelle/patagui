@@ -24,9 +24,9 @@
 #include "progress-bar.hh"
 
 #include <QDialog>
-#include <QString>
 #include <QMap>
 #include <QStatusBar>
+#include <QString>
 
 class QLabel;
 class QTableWidget;
@@ -172,16 +172,28 @@ public:
     }
 
     /// Returns \a true if the copy can be interrupted
-    bool cancelCopy() const { return m_cancelCopy; }
+    bool cancelCopy() const
+    {
+        return m_cancelCopy;
+    }
 
     /// Returns the parent widget
-    MainWindow *parent() const { return m_parent; }
+    MainWindow *parent() const
+    {
+        return m_parent;
+    }
 
     /// Defines the parent widget
-    void setParent(MainWindow *parent) { m_parent = parent; }
+    void setParent(MainWindow *parent)
+    {
+        m_parent = parent;
+    }
 
     /// If value is \a true, the copy can be interrupted
-    void setCancelCopy(bool value) { m_cancelCopy = value; }
+    void setCancelCopy(bool value)
+    {
+        m_cancelCopy = value;
+    }
 
 public slots:
 

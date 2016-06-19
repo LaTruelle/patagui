@@ -18,10 +18,10 @@
 //******************************************************************************
 #include "song.hh"
 
+#include <QColor>
 #include <QFile>
 #include <QFileInfo>
 #include <QRegExp>
-#include <QColor>
 
 #include <QDebug>
 

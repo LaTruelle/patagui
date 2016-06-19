@@ -26,11 +26,19 @@ Label::Label(QWidget *parent)
     setFixedWidth(175);
 }
 
-Label::~Label() {}
+Label::~Label()
+{
+}
 
-Qt::TextElideMode Label::elideMode() const { return m_elideMode; }
+Qt::TextElideMode Label::elideMode() const
+{
+    return m_elideMode;
+}
 
-void Label::setElideMode(Qt::TextElideMode mode) { m_elideMode = mode; }
+void Label::setElideMode(Qt::TextElideMode mode)
+{
+    m_elideMode = mode;
+}
 
 void Label::paintEvent(QPaintEvent *event)
 {

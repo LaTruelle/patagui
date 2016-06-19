@@ -20,9 +20,9 @@
 #ifndef __TAB_WIDGET_HH__
 #define __TAB_WIDGET_HH__
 
-#include <QTabWidget>
-#include <QTabBar>
 #include <QString>
+#include <QTabBar>
+#include <QTabWidget>
 
 /*!
   \file tab-widget.hh

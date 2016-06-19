@@ -19,20 +19,20 @@
 #include "song-editor.hh"
 
 #include "find-replace-dialog.hh"
+#include "library.hh"
+#include "song-code-editor.hh"
 #include "song-header-editor.hh"
 #include "song-highlighter.hh"
-#include "song-code-editor.hh"
-#include "library.hh"
 #include "utils/lineedit.hh"
 
-#include <QFile>
-#include <QToolBar>
 #include <QAction>
 #include <QActionGroup>
-#include <QTextCodec>
-#include <QSettings>
 #include <QBoxLayout>
+#include <QFile>
 #include <QMessageBox>
+#include <QSettings>
+#include <QTextCodec>
+#include <QToolBar>
 
 #include <QDebug>
 
@@ -242,9 +242,13 @@ SongEditor::~SongEditor()
     delete m_songHeaderEditor;
 }
 
-void SongEditor::readSettings() {}
+void SongEditor::readSettings()
+{
+}
 
-void SongEditor::writeSettings() {}
+void SongEditor::writeSettings()
+{
+}
 
 void SongEditor::closeEvent(QCloseEvent *event)
 {
@@ -378,9 +382,15 @@ void SongEditor::saveNewSong()
     save();
 }
 
-void SongEditor::documentWasModified() { setModified(true); }
+void SongEditor::documentWasModified()
+{
+    setModified(true);
+}
 
-Library *SongEditor::library() const { return Library::instance(); }
+Library *SongEditor::library() const
+{
+    return Library::instance();
+}
 
 bool SongEditor::isModified() const
 {
@@ -402,7 +412,10 @@ void SongEditor::setModified(bool modified)
     }
 }
 
-Song &SongEditor::song() { return m_song; }
+Song &SongEditor::song()
+{
+    return m_song;
+}
 
 void SongEditor::setSong(const Song &song)
 {
@@ -431,15 +444,30 @@ void SongEditor::setSong(const Song &song)
     setModified(false);
 }
 
-bool SongEditor::isNewSong() const { return m_newSong; }
+bool SongEditor::isNewSong() const
+{
+    return m_newSong;
+}
 
-void SongEditor::setNewSong(bool newSong) { m_newSong = newSong; }
+void SongEditor::setNewSong(bool newSong)
+{
+    m_newSong = newSong;
+}
 
-bool SongEditor::isNewCover() const { return m_newCover; }
+bool SongEditor::isNewCover() const
+{
+    return m_newCover;
+}
 
-void SongEditor::setNewCover(bool newCover) { m_newCover = newCover; }
+void SongEditor::setNewCover(bool newCover)
+{
+    m_newCover = newCover;
+}
 
-SongCodeEditor *SongEditor::codeEditor() const { return m_codeEditor; }
+SongCodeEditor *SongEditor::codeEditor() const
+{
+    return m_codeEditor;
+}
 
 bool SongEditor::isSpellCheckAvailable() const
 {

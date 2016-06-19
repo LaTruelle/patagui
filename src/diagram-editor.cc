@@ -18,25 +18,25 @@
 //******************************************************************************
 #include "diagram-editor.hh"
 
-#include "song.hh"
 #include "diagram-area.hh"
+#include "song.hh"
 
+#include <QDir>
 #include <QFile>
 #include <QScrollArea>
 #include <QSettings>
-#include <QDir>
 
+#include <QBoxLayout>
+#include <QCheckBox>
+#include <QDebug>
+#include <QDialogButtonBox>
+#include <QFormLayout>
+#include <QGroupBox>
 #include <QLabel>
 #include <QLineEdit>
-#include <QSpinBox>
-#include <QCheckBox>
-#include <QGroupBox>
-#include <QRadioButton>
 #include <QPushButton>
-#include <QDialogButtonBox>
-#include <QBoxLayout>
-#include <QFormLayout>
-#include <QDebug>
+#include <QRadioButton>
+#include <QSpinBox>
 
 DiagramEditor::DiagramEditor(QWidget *parent)
     : QDialog(parent)
@@ -167,7 +167,9 @@ DiagramEditor::DiagramEditor(QWidget *parent)
     setLayout(mainLayout);
 }
 
-DiagramEditor::~DiagramEditor() {}
+DiagramEditor::~DiagramEditor()
+{
+}
 
 QSize DiagramEditor::sizeHint() const
 {
@@ -221,7 +223,10 @@ void DiagramEditor::setChord(Chord *chord)
         m_diagramArea->clearFilters();
 }
 
-Chord *DiagramEditor::chord() const { return m_chord; }
+Chord *DiagramEditor::chord() const
+{
+    return m_chord;
+}
 
 bool DiagramEditor::checkChord()
 {

@@ -21,10 +21,10 @@
 #include "library.hh"
 
 #include <QApplication>
-#include <QStyle>
-#include <QPainter>
 #include <QLocale>
+#include <QPainter>
 #include <QPixmapCache>
+#include <QStyle>
 
 #include <QDebug>
 
@@ -33,7 +33,9 @@ SongItemDelegate::SongItemDelegate(QObject *parent)
 {
 }
 
-SongItemDelegate::~SongItemDelegate() {}
+SongItemDelegate::~SongItemDelegate()
+{
+}
 
 void SongItemDelegate::paint(QPainter *painter,
                              const QStyleOptionViewItem &option,

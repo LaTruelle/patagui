@@ -19,13 +19,13 @@
 #include "file-chooser.hh"
 
 #include <QApplication>
+#include <QBoxLayout>
+#include <QCompleter>
+#include <QDirModel>
 #include <QFileDialog>
 #include <QFileInfo>
 #include <QLineEdit>
 #include <QPushButton>
-#include <QBoxLayout>
-#include <QCompleter>
-#include <QDirModel>
 #include <QSettings>
 
 FileChooser::FileChooser(QWidget *parent)
@@ -58,7 +58,9 @@ FileChooser::FileChooser(QWidget *parent)
     setLayout(layout);
 }
 
-FileChooser::~FileChooser() {}
+FileChooser::~FileChooser()
+{
+}
 
 void FileChooser::browse()
 {
@@ -74,22 +76,40 @@ void FileChooser::browse()
         setPath(selection);
 }
 
-QFileDialog::Options FileChooser::options() const { return m_options; }
+QFileDialog::Options FileChooser::options() const
+{
+    return m_options;
+}
 
 void FileChooser::setOptions(const QFileDialog::Options &opts)
 {
     m_options = opts;
 }
 
-QString FileChooser::filter() const { return m_filter; }
+QString FileChooser::filter() const
+{
+    return m_filter;
+}
 
-void FileChooser::setFilter(const QString &filter) { m_filter = filter; }
+void FileChooser::setFilter(const QString &filter)
+{
+    m_filter = filter;
+}
 
-QString FileChooser::caption() const { return m_caption; }
+QString FileChooser::caption() const
+{
+    return m_caption;
+}
 
-void FileChooser::setCaption(const QString &caption) { m_caption = caption; }
+void FileChooser::setCaption(const QString &caption)
+{
+    m_caption = caption;
+}
 
-QString FileChooser::directory() const { return m_directory; }
+QString FileChooser::directory() const
+{
+    return m_directory;
+}
 
 void FileChooser::setDirectory(const QString &directory)
 {
@@ -101,7 +121,10 @@ void FileChooser::setDirectory(const QDir &directory)
     m_directory = directory.absolutePath();
 }
 
-QString FileChooser::path() const { return m_path; }
+QString FileChooser::path() const
+{
+    return m_path;
+}
 
 void FileChooser::setPath(const QString &path)
 {

@@ -19,17 +19,17 @@
 
 #include "diagram-area.hh"
 
-#include "diagram-editor.hh"
 #include "chord-list-model.hh"
+#include "diagram-editor.hh"
 
-#include <QBoxLayout>
-#include <QPushButton>
-#include <QList>
-#include <QHeaderView>
-#include <QTableView>
-#include <QSortFilterProxyModel>
-#include <QMenu>
 #include <QAction>
+#include <QBoxLayout>
+#include <QHeaderView>
+#include <QList>
+#include <QMenu>
+#include <QPushButton>
+#include <QSortFilterProxyModel>
+#include <QTableView>
 
 #include <QDebug>
 
@@ -123,7 +123,10 @@ void DiagramArea::resizeRows()
         m_diagramView->setRowHeight(i, 120);
 }
 
-void DiagramArea::newDiagram() { editDiagram(QModelIndex()); }
+void DiagramArea::newDiagram()
+{
+    editDiagram(QModelIndex());
+}
 
 void DiagramArea::editDiagram(QModelIndex index)
 {
@@ -135,8 +138,9 @@ void DiagramArea::editDiagram(QModelIndex index)
 
     bool newChord = !index.isValid();
 
-    Chord *chord = newChord ? new Chord : m_diagramModel->getChord(
-                                              m_proxyModel->mapToSource(index));
+    Chord *chord =
+        newChord ? new Chord
+                 : m_diagramModel->getChord(m_proxyModel->mapToSource(index));
 
     DiagramEditor dialog(this);
     dialog.setChord(chord);
@@ -175,7 +179,10 @@ void DiagramArea::onDiagramChanged()
     emit(contentsChanged());
 }
 
-bool DiagramArea::isReadOnly() const { return m_isReadOnly; }
+bool DiagramArea::isReadOnly() const
+{
+    return m_isReadOnly;
+}
 
 void DiagramArea::setReadOnly(bool value)
 {
@@ -239,7 +246,10 @@ void DiagramArea::setColumnCount(int value)
     m_diagramModel->setColumnCount(value);
 }
 
-void DiagramArea::setRowCount(int value) { m_diagramModel->setRowCount(value); }
+void DiagramArea::setRowCount(int value)
+{
+    m_diagramModel->setRowCount(value);
+}
 
 QList<Chord *> DiagramArea::chords()
 {

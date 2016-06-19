@@ -19,9 +19,9 @@
 #ifndef __SONG_HH__
 #define __SONG_HH__
 
+#include <QLocale>
 #include <QString>
 #include <QStringList>
-#include <QLocale>
 
 /*!
   \file song.hh

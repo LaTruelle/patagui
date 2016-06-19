@@ -34,7 +34,9 @@ class VariantManager : public QtVariantPropertyManager
 {
     Q_OBJECT
 public:
-    VariantManager(QObject *parent = 0) : QtVariantPropertyManager(parent) {}
+    VariantManager(QObject *parent = 0) : QtVariantPropertyManager(parent)
+    {
+    }
 
     virtual QVariant value(const QtProperty *property) const;
     virtual int valueType(int propertyType) const;

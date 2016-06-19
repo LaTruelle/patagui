@@ -58,7 +58,9 @@ LogsHighlighter::LogsHighlighter(QTextDocument *parent)
     highlightingRules.append(rule);
 }
 
-LogsHighlighter::~LogsHighlighter() {}
+LogsHighlighter::~LogsHighlighter()
+{
+}
 
 void LogsHighlighter::highlightBlock(const QString &text)
 {

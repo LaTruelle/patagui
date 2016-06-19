@@ -20,11 +20,11 @@
 #include "diagram-editor.hh"
 #include "utils/tango-colors.hh"
 
+#include <QDebug>
+#include <QPainter>
 #include <QPixmap>
 #include <QPixmapCache>
 #include <QRect>
-#include <QPainter>
-#include <QDebug>
 
 const QRegExp Chord::reChordWithFret(
     "\\\\[ug]tab[\\*]?\\{([^\\}]+)\\}\\{(\\d):([^\\}]+)");
@@ -103,7 +103,10 @@ void Chord::fromString(const QString &str)
         m_isValid = false;
 }
 
-bool Chord::isValid() const { return m_isValid; }
+bool Chord::isValid() const
+{
+    return m_isValid;
+}
 
 QPixmap *Chord::toPixmap()
 {
@@ -238,9 +241,15 @@ QColor Chord::color()
     return QColor(Qt::white);
 }
 
-void Chord::setDrawBorder(bool value) { m_drawBorder = value; }
+void Chord::setDrawBorder(bool value)
+{
+    m_drawBorder = value;
+}
 
-QString Chord::name() const { return m_name; }
+QString Chord::name() const
+{
+    return m_name;
+}
 
 void Chord::setName(const QString &str)
 {
@@ -250,7 +259,10 @@ void Chord::setName(const QString &str)
     }
 }
 
-QString Chord::fret() const { return m_fret; }
+QString Chord::fret() const
+{
+    return m_fret;
+}
 
 void Chord::setFret(const QString &str)
 {
@@ -260,7 +272,10 @@ void Chord::setFret(const QString &str)
     }
 }
 
-QString Chord::strings() const { return m_strings; }
+QString Chord::strings() const
+{
+    return m_strings;
+}
 
 void Chord::setStrings(const QString &str)
 {
@@ -270,7 +285,10 @@ void Chord::setStrings(const QString &str)
     }
 }
 
-Chord::Instrument Chord::instrument() const { return m_instrument; }
+Chord::Instrument Chord::instrument() const
+{
+    return m_instrument;
+}
 
 void Chord::setInstrument(const Chord::Instrument &instru)
 {
@@ -290,6 +308,12 @@ void Chord::switchInstrument(bool value)
     }
 }
 
-bool Chord::isImportant() const { return m_important; }
+bool Chord::isImportant() const
+{
+    return m_important;
+}
 
-void Chord::setImportant(bool value) { m_important = value; }
+void Chord::setImportant(bool value)
+{
+    m_important = value;
+}

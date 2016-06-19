@@ -20,9 +20,9 @@
 
 #include "song-sort-filter-proxy-model.hh"
 
-#include <QPainter>
-#include <QMenu>
 #include <QAction>
+#include <QMenu>
+#include <QPainter>
 
 #include <QDebug>
 
@@ -236,9 +236,14 @@ FilterLineEdit::FilterLineEdit(QWidget *parent)
     setInactiveText(tr("Filter"));
 }
 
-FilterLineEdit::~FilterLineEdit() {}
+FilterLineEdit::~FilterLineEdit()
+{
+}
 
-void FilterLineEdit::addAction(QAction *action) { m_menu->addAction(action); }
+void FilterLineEdit::addAction(QAction *action)
+{
+    m_menu->addAction(action);
+}
 
 void FilterLineEdit::setFilterModel(SongSortFilterProxyModel *filterModel)
 {
@@ -247,12 +252,27 @@ void FilterLineEdit::setFilterModel(SongSortFilterProxyModel *filterModel)
             SLOT(setFilterString(const QString &)));
 }
 
-void FilterLineEdit::filterLanguageEnglish() { setText(text() + " :en"); }
+void FilterLineEdit::filterLanguageEnglish()
+{
+    setText(text() + " :en");
+}
 
-void FilterLineEdit::filterLanguageFrench() { setText(text() + " :fr"); }
+void FilterLineEdit::filterLanguageFrench()
+{
+    setText(text() + " :fr");
+}
 
-void FilterLineEdit::filterLanguageSpanish() { setText(text() + " :es"); }
+void FilterLineEdit::filterLanguageSpanish()
+{
+    setText(text() + " :es");
+}
 
-void FilterLineEdit::filterLanguagePortuguese() { setText(text() + " :pt"); }
+void FilterLineEdit::filterLanguagePortuguese()
+{
+    setText(text() + " :pt");
+}
 
-void FilterLineEdit::filterLanguageItalian() { setText(text() + " :it"); }
+void FilterLineEdit::filterLanguageItalian()
+{
+    setText(text() + " :it");
+}

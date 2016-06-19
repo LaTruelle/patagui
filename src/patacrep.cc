@@ -19,7 +19,9 @@ Patacrep::Patacrep(QObject *parent) : QObject(parent)
     buildingSongbook = false;
 }
 
-Patacrep::~Patacrep() {}
+Patacrep::~Patacrep()
+{
+}
 
 void Patacrep::stdOut(QString string)
 {
@@ -79,8 +81,9 @@ void Patacrep::buildSongbook()
         pythonModule.addObject("songbook", songbook);
         pythonModule.addObject("CPPprocess", this);
         pythonModule.evalScript("setupSongbook(songbook.filename)");
-        pythonModule.evalScript("build(['clean', 'tex', 'pdf', 'sbx', 'pdf', 'clean'])");
-//        pythonModule.removeVariable("songbook");
+        pythonModule.evalScript(
+            "build(['clean', 'tex', 'pdf', 'sbx', 'pdf', 'clean'])");
+        //        pythonModule.removeVariable("songbook");
         emit(message("Finished Execution", 0));
         emit(finished());
     } else {
