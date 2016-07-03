@@ -41,6 +41,24 @@
 #include "yaml-cpp/yaml.h"
 #include <QDebug>
 
+namespace YAML
+{
+template <> struct convert<QString> {
+    static Node encode(const QString &string)
+    {
+        Node node;
+        node.push_back(string);
+        return node;
+    }
+
+    static bool decode(const Node &node, QString &string)
+    {
+        string = QString::fromStdString(node.as<std::string>());
+        return true;
+    }
+};
+}
+
 Songbook::Songbook(QObject *parent)
     : IdentityProxyModel(parent)
     , m_filename()
@@ -426,8 +444,15 @@ void Songbook::save(const QString &filename)
 
 void Songbook::load(const QString &filename)
 {
+    // Parse document
     YAML::Node songbook = YAML::LoadFile(filename.toStdString());
 
+    // Retrieve template value
+    if (songbook["template"]) {
+        setTmpl(songbook["template"].as<QString>());
+    } else {
+        setTmpl("patacrep.tex");
+    }
     QFile file(filename);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         // Read File
