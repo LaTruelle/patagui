@@ -41,7 +41,7 @@ void SongItemDelegate::paint(QPainter *painter,
                              const QStyleOptionViewItem &option,
                              const QModelIndex &index) const
 {
-    QStyleOptionViewItemV4 opt(option);
+    QStyleOptionViewItem opt(option);
     opt.state &= ~QStyle::State_MouseOver;
     opt.state &= ~QStyle::State_HasFocus;
 
