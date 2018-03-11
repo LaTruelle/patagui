@@ -26,8 +26,8 @@
  ****************************************************************************/
 
 #include "variant-factory.hh"
-#include "variant-manager.hh"
 #include "file-chooser.hh"
+#include "variant-manager.hh"
 #include <QSpinBox>
 
 VariantFactory::~VariantFactory()

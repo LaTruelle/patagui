@@ -19,12 +19,12 @@
 #ifndef __CHORD_HH__
 #define __CHORD_HH__
 
-#include <QObject>
-#include <QString>
-#include <QPixmap>
-#include <QSize>
 #include <QBrush>
+#include <QObject>
+#include <QPixmap>
 #include <QRegExp>
+#include <QSize>
+#include <QString>
 
 class QPainter;
 

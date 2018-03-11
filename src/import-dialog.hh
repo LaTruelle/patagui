@@ -21,9 +21,9 @@
 #define __IMPORT_DIALOG_HH
 
 #include <QDialog>
+#include <QDir>
 #include <QString>
 #include <QUrl>
-#include <QDir>
 
 #include "config.hh"
 

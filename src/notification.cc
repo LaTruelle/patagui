@@ -71,9 +71,15 @@ MainWindow *Notification::parent() const
     return static_cast<MainWindow *>(QDockWidget::parent());
 }
 
-QString Notification::message() const { return m_textEdit->toPlainText(); }
+QString Notification::message() const
+{
+    return m_textEdit->toPlainText();
+}
 
-void Notification::setMessage(const QString &str) { m_textEdit->setHtml(str); }
+void Notification::setMessage(const QString &str)
+{
+    m_textEdit->setHtml(str);
+}
 
 void Notification::addAction(QAction *action)
 {
@@ -83,7 +89,10 @@ void Notification::addAction(QAction *action)
     m_layout->insertWidget(0, button);
 }
 
-Notification::Priority Notification::priority() const { return m_priority; }
+Notification::Priority Notification::priority() const
+{
+    return m_priority;
+}
 
 void Notification::setPriority(const Notification::Priority &value)
 {

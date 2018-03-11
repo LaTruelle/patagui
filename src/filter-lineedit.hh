@@ -26,8 +26,8 @@
 #ifndef __FILTER_LINEEDIT_HH__
 #define __FILTER_LINEEDIT_HH__
 
-#include <QToolButton>
 #include "utils/lineedit.hh"
+#include <QToolButton>
 
 /*!
   \file filter-lineedit.hh
@@ -40,17 +40,17 @@ class ClearButton : public QToolButton
 {
     Q_OBJECT
 
-    public:
+public:
     /// Constructor.
     ClearButton(QWidget *parent = 0);
 
-    protected slots:
+protected slots:
     void textChanged(const QString &text);
 
-    protected:
+protected:
     void paintEvent(QPaintEvent *event);
 
-    private:
+private:
     QImage m_icon;
 };
 
@@ -64,14 +64,14 @@ class MagButton : public QToolButton
 {
     Q_OBJECT
 
-    public:
+public:
     /// Constructor.
     MagButton(QWidget *parent = 0);
 
-    protected:
+protected:
     void paintEvent(QPaintEvent *event);
 
-    private:
+private:
     QImage m_icon;
 };
 
@@ -85,7 +85,7 @@ class LocaleButton : public QToolButton
 {
     Q_OBJECT
 
-    public:
+public:
     /// Constructor.
     LocaleButton(QWidget *parent = 0);
 };
@@ -119,7 +119,7 @@ class FilterLineEdit : public LineEdit
 {
     Q_OBJECT
 
-    public slots:
+public slots:
     /// Only display songs written in English.
     void filterLanguageEnglish();
     /// Only display songs written in French.
@@ -131,7 +131,7 @@ class FilterLineEdit : public LineEdit
     /// Only display songs written in Italian.
     void filterLanguageItalian();
 
-    public:
+public:
     /// Constructor.
     FilterLineEdit(QWidget *parent = 0);
     /// Destructor.
@@ -145,7 +145,7 @@ class FilterLineEdit : public LineEdit
     /// @param filterModel the proxy model of the songs library
     void setFilterModel(SongSortFilterProxyModel *filterModel);
 
-    private:
+private:
     QMenu *m_menu;
 
     SongSortFilterProxyModel *m_filterModel;

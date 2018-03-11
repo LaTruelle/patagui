@@ -37,7 +37,9 @@ class VariantFactory : public QtVariantEditorFactory
 {
     Q_OBJECT
 public:
-    VariantFactory(QObject *parent = 0) : QtVariantEditorFactory(parent) {}
+    VariantFactory(QObject *parent = 0) : QtVariantEditorFactory(parent)
+    {
+    }
 
     virtual ~VariantFactory();
 
@@ -56,9 +58,9 @@ private slots:
     void slotEditorDestroyed(QObject *object);
 
 private:
-    QMap<QtProperty *, QList<FileChooser *> > theCreatedEditors;
+    QMap<QtProperty *, QList<FileChooser *>> theCreatedEditors;
     QMap<FileChooser *, QtProperty *> theEditorToProperty;
-    QMap<QtProperty *, QList<QSpinBox *> > theCreatedSpinBoxes;
+    QMap<QtProperty *, QList<QSpinBox *>> theCreatedSpinBoxes;
     QMap<QSpinBox *, QtProperty *> theSpinBoxToProperty;
 };
 

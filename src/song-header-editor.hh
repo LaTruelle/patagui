@@ -23,9 +23,9 @@
 
 #include "song.hh"
 
-#include <QString>
 #include <QLabel>
 #include <QPixmap>
+#include <QString>
 
 class CoverDropArea;
 class DiagramArea;
@@ -39,17 +39,20 @@ class QStackedLayout;
 /*!
   \file song-header-editor.hh
   \class CSongHeaderEditor
-  \brief CSongHeaderEditor is a widget that manages a Song metadata in a SongEditor
+  \brief CSongHeaderEditor is a widget that manages a Song metadata in a
+  SongEditor
 
   A Song is composed of a header (metadata) and a body (lyrics).
-  The CSongHeaderEditor hides the plain text of the song's header to present them
+  The CSongHeaderEditor hides the plain text of the song's header to present
+  them
   in a more user-friendly way through appropriated QWidgets that allow to
   fill the fields such as artist name, album, cover, capo etc.
 
   Two different views can be toggled:
   \li the full-view mode allows to edit the song metadata
   \image html song-header-editor-full.png
-  \li the mini-view mode saves vertical space and provides minimal read-only information
+  \li the mini-view mode saves vertical space and provides minimal read-only
+  information
   \image html song-header-editor-mini.png
 
 */
@@ -63,8 +66,10 @@ public:
     This enum describes available view modes for CSongHeaderEditor objects.
   */
     enum ViewMode {
-        FullViewMode, /*!< full view: displays cover, song options and chords (editable). */
-        MiniViewMode  /*!< mini view: displays mini cover, artist and title (read-only). */
+        FullViewMode, /*!< full view: displays cover, song options and chords
+                         (editable). */
+        MiniViewMode  /*!< mini view: displays mini cover, artist and title
+                         (read-only). */
     };
 
     /// Constructor.
@@ -75,7 +80,7 @@ public:
     /// Getter on the song whose metadata is used
     /// to build this instance of CSongHeaderEditor.
     /// @return the Song
-    Song & song();
+    Song &song();
 
     /// Setter on the song
     /// @param song the song
@@ -83,17 +88,17 @@ public:
 
     /// Getter on the song's cover
     /// @return the cover
-    const QImage & cover();
+    const QImage &cover();
 
     /*!
     Returns the title line edit widget.
   */
-    LineEdit* titleLineEdit() const;
+    LineEdit *titleLineEdit() const;
 
     /*!
     Returns the artist line edit widget.
   */
-    LineEdit* artistLineEdit() const;
+    LineEdit *artistLineEdit() const;
 
     /*!
     Returns the preferred size of the widget.
@@ -134,7 +139,6 @@ signals:
     void newCover(bool);
 
 private:
-
     /*!
     Sets the artist and album completers from the library.
     Those completers are set on album and artist line edits.
@@ -159,7 +163,6 @@ private:
     ViewMode m_viewMode;
     QStackedLayout *m_stackedLayout;
 };
-
 
 class QMimeData;
 class QDragEnterEvent;
@@ -193,13 +196,13 @@ public:
     /*!
     Returns the Song object associated with this cover.
   */
-    Song & song();
+    Song &song();
 
     /*!
     Returns the cover of the song.
     \sa setCover
   */
-    const QImage & cover();
+    const QImage &cover();
 
     /*!
     Sets \a cover as the cover of the song.
@@ -218,7 +221,7 @@ public:
     Returns the parent widget.
     \sa setParent
   */
-    CSongHeaderEditor * parent() const;
+    CSongHeaderEditor *parent() const;
 
     /*!
     Sets \a p as the parent object.
@@ -258,7 +261,7 @@ signals:
     This signal is emitted whenever a new cover image is displayed.
     \sa coverChanged, miniCoverChanged
   */
-    void miniCoverChanged(const QPixmap & thumbnail);
+    void miniCoverChanged(const QPixmap &thumbnail);
 
 protected:
     void dragEnterEvent(QDragEnterEvent *event);
@@ -272,7 +275,7 @@ protected:
 private:
     QString m_filename;
     QImage m_cover;
-    CSongHeaderEditor * m_parent;
+    CSongHeaderEditor *m_parent;
 };
 
 #endif // __SONG_HEADER_EDITOR_HH__

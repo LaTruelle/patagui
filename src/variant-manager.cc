@@ -42,7 +42,10 @@ int VariantManager::filePathTypeId()
     return qMetaTypeId<FilePathPropertyType>();
 }
 
-int VariantManager::unitTypeId() { return qMetaTypeId<UnitPropertyType>(); }
+int VariantManager::unitTypeId()
+{
+    return qMetaTypeId<UnitPropertyType>();
+}
 
 bool VariantManager::isPropertyTypeSupported(int propertyType) const
 {

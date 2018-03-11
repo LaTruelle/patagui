@@ -112,7 +112,7 @@ set(PATAGUI_RCS
   icons/songbook/songbook.qrc
   icons/macos/macos.qrc
   icons/tango/tango.qrc
-#  patagui.rc FIXME
+  # patagui.rc FIXME
   src/songbook_scripts.qrc
   )
 

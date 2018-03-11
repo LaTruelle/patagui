@@ -17,28 +17,28 @@
 // 02110-1301, USA.
 //******************************************************************************
 #include "song-code-editor.hh"
+#include "search-widget.hh"
 #include "song-highlighter.hh"
 #include "song.hh"
-#include "search-widget.hh"
 #include "utils/tango-colors.hh"
 
 #ifdef ENABLE_SPELLCHECK
 #include "hunspell/hunspell.hxx"
 #endif // ENABLE_SPELLCHECK
 
-#include <QtGlobal>
-#include <QSettings>
-#include <QTextCodec>
-#include <QTextBlock>
 #include <QDebug>
+#include <QSettings>
+#include <QTextBlock>
+#include <QTextCodec>
+#include <QtGlobal>
 
-#include <QCompleter>
-#include <QAbstractItemView>
-#include <QModelIndex>
 #include <QAbstractItemModel>
-#include <QScrollBar>
+#include <QAbstractItemView>
+#include <QCompleter>
 #include <QKeyEvent>
+#include <QModelIndex>
 #include <QResizeEvent>
+#include <QScrollBar>
 
 #include <QAction>
 #include <QMenu>
@@ -145,7 +145,9 @@ void SongCodeEditor::readSettings()
     settings.endGroup();
 }
 
-void SongCodeEditor::writeSettings() {}
+void SongCodeEditor::writeSettings()
+{
+}
 
 void SongCodeEditor::setHighlighter(SongHighlighter *highlighter)
 {
@@ -166,9 +168,11 @@ void SongCodeEditor::setHighlighter(SongHighlighter *highlighter)
     if (previousDocument)
         previousDocument->setModified(state);
 
+#ifdef ENABLE_SPELLCHECK
     if (first)
         connect(this, SIGNAL(wordAdded(const QString &)), m_highlighter,
                 SLOT(addWord(const QString &)));
+#endif
 }
 
 void SongCodeEditor::insertVerse()
@@ -659,9 +663,15 @@ void SongCodeEditor::setSpellCheckActive(const bool value)
 #endif // ENABLE_SPELLCHECK
 }
 
-SongHighlighter *SongCodeEditor::highlighter() const { return m_highlighter; }
+SongHighlighter *SongCodeEditor::highlighter() const
+{
+    return m_highlighter;
+}
 
-QCompleter *SongCodeEditor::completer() const { return m_completer; }
+QCompleter *SongCodeEditor::completer() const
+{
+    return m_completer;
+}
 
 bool SongCodeEditor::environmentsHighlighted() const
 {

@@ -22,9 +22,9 @@
 
 #include <QMainWindow>
 
-#include <QModelIndex>
 #include <QDir>
 #include <QFuture>
+#include <QModelIndex>
 
 class Songbook;
 class Library;
@@ -118,14 +118,14 @@ public:
     that are generated in the songbook directory during the make().
     \sa make, makeCleanall
   */
-//    void makeClean();
+    //    void makeClean();
 
     /*!
     Removes LaTeX temporary files (*.aux *.log etc.) and PDF files
     that are generated in the songbook directory during the make().
     \sa make, makeClean
   */
-//    void makeCleanall();
+    //    void makeCleanall();
 
 protected:
     /*!

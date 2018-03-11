@@ -1,11 +1,11 @@
 #ifndef PATACREP_H
 #define PATACREP_H
 
+#include "PythonQt.h"
+#include "songbook.hh"
 #include <QObject>
 #include <QString>
 #include <QStringList>
-#include "PythonQt.h"
-#include "songbook.hh"
 
 class Patacrep : public QObject
 {

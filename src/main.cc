@@ -32,17 +32,17 @@
 
 #include <QApplication>
 
-#include <QTranslator>
-#include <QTextCodec>
 #include <QDate>
-#include <QLocale>
-#include <QDir>
-#include <QTextStream>
 #include <QDebug>
+#include <QDir>
+#include <QLocale>
+#include <QTextCodec>
+#include <QTextStream>
+#include <QTranslator>
 
 #include "config.hh"
-#include "main-window.hh"
 #include "library.hh"
+#include "main-window.hh"
 
 #ifdef USE_SPARKLE
 #include "../macos_specific/sparkle/src/CocoaInitializer.h"

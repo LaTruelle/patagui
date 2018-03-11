@@ -5,21 +5,12 @@
 
 include(ExternalProject)
 
-# Look for qmake
-IF(NOT QT_QMAKE_EXECUTABLE)
-    FIND_PROGRAM(QT_QMAKE_EXECUTABLE_FINDQT NAMES qmake5 qmake-qt5 qmake
-        PATHS "${QT_SEARCH_PATH}/bin" "$ENV{QTDIR}/bin")
-    SET(QT_QMAKE_EXECUTABLE ${QT_QMAKE_EXECUTABLE_FINDQT} CACHE PATH "Qt qmake program.")
-ENDIF(NOT QT_QMAKE_EXECUTABLE)
-
 # Extract PythonQt from modified sources, then build
 ExternalProject_Add(PythonQt-External
 PREFIX pythonqt
 # Backup URL in case SVN messes up.
 URL "${CMAKE_CURRENT_SOURCE_DIR}/external_libs/pythonqt.zip"
-PATCH_COMMAND ""
-CONFIGURE_COMMAND ${QT_QMAKE_EXECUTABLE} ${CMAKE_CURRENT_BINARY_DIR}/pythonqt/src/PythonQt-External/PythonQt.pro
-BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
+CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
 BUILD_IN_SOURCE 1
 INSTALL_COMMAND ""
 # Wrap download, configure and build steps in a script to log output
@@ -34,8 +25,8 @@ set(PYTHONQT_LIBRARY PythonQt)
 
 # Create dummy PythonQtLib that depends on real pythonqt in order to have cmake behaving properly without having to resort
 # to a superbuild mechanism.
-add_library(PythonQt STATIC IMPORTED)
-set_target_properties(PythonQt PROPERTIES IMPORTED_LOCATION ${PYTHONQT_INSTALL_DIR}/lib/${CMAKE_STATIC_LIBRARY_PREFIX}PythonQt${CMAKE_STATIC_LIBRARY_SUFFIX})
+add_library(PythonQt SHARED IMPORTED)
+set_target_properties(PythonQt PROPERTIES IMPORTED_LOCATION ${PYTHONQT_INSTALL_DIR}/${CMAKE_SHARED_LIBRARY_PREFIX}PythonQt${CMAKE_SHARED_LIBRARY_SUFFIX})
 add_dependencies(PythonQt PythonQt-External)
 
 # Used for OSX deployment.

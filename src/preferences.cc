@@ -40,10 +40,10 @@
 
 #include <QtGroupBoxPropertyBrowser>
 
+#include "file-chooser.hh"
+#include "library.hh"
 #include "main-window.hh"
 #include "songbook.hh"
-#include "library.hh"
-#include "file-chooser.hh"
 
 #include <QDebug>
 
@@ -161,7 +161,9 @@ void ConfigDialog::closeEvent(QCloseEvent *event)
 
 // Page
 
-Page::Page(QWidget *parent) : QScrollArea(parent), m_content(new QWidget) {}
+Page::Page(QWidget *parent) : QScrollArea(parent), m_content(new QWidget)
+{
+}
 
 ConfigDialog *Page::parent() const
 {
@@ -177,9 +179,13 @@ void Page::closeEvent(QCloseEvent *event)
     event->accept();
 }
 
-void Page::readSettings() {}
+void Page::readSettings()
+{
+}
 
-void Page::writeSettings() {}
+void Page::writeSettings()
+{
+}
 
 void Page::setLayout(QLayout *layout)
 {
@@ -439,8 +445,10 @@ void EditorPage::selectFont()
 
 void EditorPage::updateFontButton()
 {
-    m_fontButton->setText(QString("%1 %2").arg(QFontInfo(m_font).family()).arg(
-        QString::number(QFontInfo(m_font).pointSize())));
+    m_fontButton->setText(
+        QString("%1 %2")
+            .arg(QFontInfo(m_font).family())
+            .arg(QString::number(QFontInfo(m_font).pointSize())));
 }
 
 // Songbook Page

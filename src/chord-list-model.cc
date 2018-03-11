@@ -51,7 +51,10 @@ void ChordListModel::setColumnCount(int value)
     emit(layoutChanged());
 }
 
-int ChordListModel::rowCount(const QModelIndex &) const { return m_rowCount; }
+int ChordListModel::rowCount(const QModelIndex &) const
+{
+    return m_rowCount;
+}
 
 void ChordListModel::setRowCount(int value)
 {

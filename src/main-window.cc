@@ -18,45 +18,45 @@
 //******************************************************************************
 #include "main-window.hh"
 
-#include <QApplication>
 #include <QAction>
+#include <QApplication>
 #include <QBoxLayout>
 #include <QCheckBox>
 #include <QCloseEvent>
 #include <QCompleter>
 #include <QCoreApplication>
 #include <QDesktopServices>
-#include <QStandardPaths>
 #include <QDialogButtonBox>
 #include <QFileDialog>
 #include <QFileSystemModel>
+#include <QFuture>
 #include <QListView>
 #include <QMenu>
 #include <QMenuBar>
 #include <QMessageBox>
 #include <QPlainTextEdit>
 #include <QSettings>
+#include <QStandardPaths>
 #include <QStatusBar>
 #include <QToolBar>
 #include <QtConcurrent>
-#include <QFuture>
 
-#include "label.hh"
-#include "library.hh"
-#include "library-view.hh"
-#include "songbook.hh"
-#include "song-editor.hh"
-#include "song-highlighter.hh"
-#include "logs-highlighter.hh"
 #include "filter-lineedit.hh"
-#include "song-sort-filter-proxy-model.hh"
-#include "tab-widget.hh"
+#include "import-dialog.hh"
+#include "label.hh"
+#include "library-view.hh"
+#include "library.hh"
+#include "logs-highlighter.hh"
 #include "notification.hh"
-#include "song-item-delegate.hh"
+#include "patacrep.hh"
 #include "preferences.hh"
 #include "progress-bar.hh"
-#include "import-dialog.hh"
-#include "patacrep.hh"
+#include "song-editor.hh"
+#include "song-highlighter.hh"
+#include "song-item-delegate.hh"
+#include "song-sort-filter-proxy-model.hh"
+#include "songbook.hh"
+#include "tab-widget.hh"
 
 #include <QDebug>
 #include <QMetaMethod>
@@ -194,8 +194,9 @@ bool removeDirectoryRecursively(const QDir &directory)
 }
 }
 
-const QString MainWindow::_cachePath(QString("%1/patagui").arg(
-    QStandardPaths::writableLocation(QStandardPaths::CacheLocation)));
+const QString MainWindow::_cachePath(
+    QString("%1/patagui")
+        .arg(QStandardPaths::writableLocation(QStandardPaths::CacheLocation)));
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -910,7 +911,8 @@ void MainWindow::deleteSong(const QString &path)
 {
     int ret = QMessageBox::warning(
         this, tr("Patagui"), tr("This file will be deleted:\n%1\n"
-                                "Are you sure?").arg(path),
+                                "Are you sure?")
+                                 .arg(path),
         QMessageBox::Cancel | QMessageBox::Ok, QMessageBox::Cancel);
 
     if (ret == QMessageBox::Ok)

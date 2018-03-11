@@ -41,7 +41,9 @@ LibraryView::LibraryView(MainWindow *parent) : QTableView(parent)
     createActions();
 }
 
-LibraryView::~LibraryView() {}
+LibraryView::~LibraryView()
+{
+}
 
 MainWindow *LibraryView::parent() const
 {
@@ -62,7 +64,9 @@ void LibraryView::readSettings()
     settings.endGroup();
 }
 
-void LibraryView::writeSettings() {}
+void LibraryView::writeSettings()
+{
+}
 
 void LibraryView::update()
 {

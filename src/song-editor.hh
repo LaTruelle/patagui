@@ -22,8 +22,8 @@
 #include "config.hh"
 #include "song.hh"
 
-#include <QWidget>
 #include <QString>
+#include <QWidget>
 
 class QAction;
 class QActionGroup;

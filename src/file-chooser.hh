@@ -20,10 +20,10 @@
 #ifndef __FILE_CHOOSER_HH__
 #define __FILE_CHOOSER_HH__
 
-#include <QWidget>
-#include <QString>
 #include <QDir>
 #include <QFileDialog>
+#include <QString>
+#include <QWidget>
 
 class QLineEdit;
 class QPushButton;

@@ -22,23 +22,23 @@
 
 #include "diff_match_patch/diff_match_patch.h"
 
-#include <QUrl>
+#include <QCryptographicHash>
+#include <QDesktopServices>
+#include <QDialogButtonBox>
 #include <QDir>
 #include <QFile>
 #include <QFileInfo>
+#include <QFormLayout>
+#include <QHeaderView>
 #include <QLabel>
 #include <QLayout>
-#include <QFormLayout>
-#include <QDialogButtonBox>
-#include <QPushButton>
-#include <QTableWidget>
-#include <QHeaderView>
 #include <QPixmap>
 #include <QPixmapCache>
-#include <QDesktopServices>
-#include <QCryptographicHash>
-#include <QWizard>
 #include <QPlainTextEdit>
+#include <QPushButton>
+#include <QTableWidget>
+#include <QUrl>
+#include <QWizard>
 
 #include <QDebug>
 
@@ -135,9 +135,15 @@ ConflictDialog::~ConflictDialog()
     delete m_fileCopier;
 }
 
-void ConflictDialog::setParent(MainWindow *parent) { m_parent = parent; }
+void ConflictDialog::setParent(MainWindow *parent)
+{
+    m_parent = parent;
+}
 
-MainWindow *ConflictDialog::parent() const { return m_parent; }
+MainWindow *ConflictDialog::parent() const
+{
+    return m_parent;
+}
 
 ProgressBar *ConflictDialog::progressBar() const
 {
@@ -245,9 +251,15 @@ void ConflictDialog::setSourceTargetFiles(const QMap<QString, QString> &files)
         updateItemDetails(m_conflictView->itemAt(0, 0));
 }
 
-bool ConflictDialog::conflictsFound() const { return m_conflictsFound; }
+bool ConflictDialog::conflictsFound() const
+{
+    return m_conflictsFound;
+}
 
-void ConflictDialog::cancelCopy() { m_fileCopier->setCancelCopy(true); }
+void ConflictDialog::cancelCopy()
+{
+    m_fileCopier->setCancelCopy(true);
+}
 
 void ConflictDialog::showDiff()
 {

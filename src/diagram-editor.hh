@@ -19,9 +19,9 @@
 #ifndef __DIAGRAM_EDITOR_HH__
 #define __DIAGRAM_EDITOR_HH__
 
+#include "chord.hh"
 #include <QDialog>
 #include <QString>
-#include "chord.hh"
 
 class QLineEdit;
 class QSpinBox;

@@ -34,7 +34,9 @@ SongSortFilterProxyModel::SongSortFilterProxyModel(QObject *parent)
 {
 }
 
-SongSortFilterProxyModel::~SongSortFilterProxyModel() {}
+SongSortFilterProxyModel::~SongSortFilterProxyModel()
+{
+}
 
 void SongSortFilterProxyModel::setFilterString(const QString &filterString)
 {
@@ -137,8 +139,8 @@ bool SongSortFilterProxyModel::filterAcceptsRow(
                                           .value<QLocale::Language>());
 
     if (m_onlySelected)
-        accept = accept &&
-                 qobject_cast<Songbook *>(sourceModel())->isChecked(index);
+        accept =
+            accept && qobject_cast<Songbook *>(sourceModel())->isChecked(index);
 
     if (m_onlyNotSelected)
         accept = accept &&
@@ -219,7 +221,10 @@ SongSortFilterProxyModel::negativeLanguageFilter() const
     return m_negativeLanguageFilter;
 }
 
-void SongSortFilterProxyModel::clearKeywordFilter() { m_keywordFilter.clear(); }
+void SongSortFilterProxyModel::clearKeywordFilter()
+{
+    m_keywordFilter.clear();
+}
 
 const QStringList &SongSortFilterProxyModel::keywordFilter() const
 {

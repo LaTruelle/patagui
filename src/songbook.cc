@@ -24,22 +24,40 @@
 
 #include <QByteArray>
 #include <QFile>
-#include <QJsonObject>
-#include <QJsonDocument>
-#include <QJsonValue>
 #include <QJsonArray>
+#include <QJsonDocument>
+#include <QJsonObject>
+#include <QJsonValue>
 #include <QVariantList>
 
-#include <QtGroupBoxPropertyBrowser>
 #include <QtAbstractPropertyManager>
+#include <QtGroupBoxPropertyBrowser>
 
 #include "qtpropertymanager.h"
-#include "variant-manager.hh"
 #include "variant-factory.hh"
+#include "variant-manager.hh"
 
 #include "library.hh"
 #include "yaml-cpp/yaml.h"
 #include <QDebug>
+
+namespace YAML
+{
+template <> struct convert<QString> {
+    static Node encode(const QString &string)
+    {
+        Node node;
+        node.push_back(string);
+        return node;
+    }
+
+    static bool decode(const Node &node, QString &string)
+    {
+        string = QString::fromStdString(node.as<std::string>());
+        return true;
+    }
+};
+}
 
 Songbook::Songbook(QObject *parent)
     : IdentityProxyModel(parent)
@@ -397,17 +415,18 @@ void Songbook::save(const QString &filename)
 
     // Start songs insertion
     songbook << YAML::Key << "content" << YAML::Value << YAML::BeginSeq;
-
     foreach (QString song, songs()) {
         songbook << song.toStdString();
     }
-
     songbook << YAML::EndSeq; // End songs
-    songbook << YAML::EndDoc; // End Document
+
+    songbook << YAML::EndMap; // End Document
 
     // Test YAML document
     if (!songbook.good()) {
-        qWarning() << "Error during write";
+        // TODO: Deal with error
+        qWarning() << "Error during write:";
+        qWarning() << songbook.GetLastError().c_str();
         return;
     }
 
@@ -425,8 +444,15 @@ void Songbook::save(const QString &filename)
 
 void Songbook::load(const QString &filename)
 {
+    // Parse document
     YAML::Node songbook = YAML::LoadFile(filename.toStdString());
 
+    // Retrieve template value
+    if (songbook["template"]) {
+        setTmpl(songbook["template"].as<QString>());
+    } else {
+        setTmpl("patacrep.tex");
+    }
     QFile file(filename);
     if (file.open(QIODevice::ReadOnly | QIODevice::Text)) {
         // Read File

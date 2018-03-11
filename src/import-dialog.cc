@@ -20,30 +20,30 @@
 #include "import-dialog.hh"
 
 #include "file-chooser.hh"
-#include "main-window.hh"
 #include "library.hh"
+#include "main-window.hh"
 #include "progress-bar.hh"
 
-#include <QDir>
-#include <QLabel>
-#include <QGroupBox>
-#include <QFormLayout>
 #include <QBoxLayout>
-#include <QSettings>
 #include <QButtonGroup>
-#include <QRadioButton>
-#include <QPushButton>
+#include <QDesktopServices>
+#include <QDialogButtonBox>
+#include <QDir>
+#include <QFormLayout>
 #include <QGridLayout>
+#include <QGroupBox>
+#include <QLabel>
+#include <QLineEdit>
 #include <QListWidget>
 #include <QListWidgetItem>
-#include <QLineEdit>
-#include <QDialogButtonBox>
 #include <QMessageBox>
+#include <QPushButton>
+#include <QRadioButton>
+#include <QSettings>
 #include <QStatusBar>
-#include <QDesktopServices>
 
-#include <QElapsedTimer>
 #include <QDebug>
+#include <QElapsedTimer>
 
 #include "config.hh"
 
@@ -251,9 +251,15 @@ void ImportDialog::writeSettings()
     settings.endGroup();
 }
 
-MainWindow *ImportDialog::parent() const { return m_parent; }
+MainWindow *ImportDialog::parent() const
+{
+    return m_parent;
+}
 
-void ImportDialog::setParent(MainWindow *parent) { m_parent = parent; }
+void ImportDialog::setParent(MainWindow *parent)
+{
+    m_parent = parent;
+}
 
 void ImportDialog::checkLibraryPath(const QString &path)
 {
@@ -468,8 +474,8 @@ void ImportDialog::downloadFinished()
             QDir::setCurrent(dir.absolutePath());
             if (decompress(filepath)) {
                 Library::recursiveFindFiles(dir.absolutePath(),
-                                             QStringList() << "*.sg",
-                                             m_songsToBeImported);
+                                            QStringList() << "*.sg",
+                                            m_songsToBeImported);
                 showMessage(tr("Download completed"));
                 emit(songsReadyToBeImported(m_songsToBeImported));
             }
