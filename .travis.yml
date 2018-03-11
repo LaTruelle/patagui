@@ -16,13 +16,13 @@ matrix:
 
 install:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-         sudo apt-add-repository -y ppa:beineri/opt-qt551-trusty
+         sudo apt-add-repository -y ppa:beineri/opt-qt594-trusty
       && sudo apt-add-repository -y ppa:george-edison55/cmake-3.x
       && sudo apt-get -qq update
-      && sudo apt-get -qq install build-essential qt55tools qt55base cmake
-      && QTDIR="/opt/qt55"
+      && sudo apt-get -qq install build-essential qt59tools qt59base cmake
+      && QTDIR="/opt/qt59"
       && PATH="$QTDIR/bin:$PATH"
-      && qt55-env.sh
+      && qt59-env.sh
       ;
     else
          brew update
@@ -31,14 +31,14 @@ install:
       && brew install qt5
       && brew linkapps qt5
       && brew link --force qt5
-      && brew install python3
+      && brew install python@3
       && chmod -R 755 /usr/local/opt/qt5/*
       ;
     fi
 
 script:
   - if [ "${TRAVIS_OS_NAME}" = "linux" ]; then
-        cmake -DCMAKE_BUILD_TYPE=$CONFIG -DCMAKE_PREFIX_PATH=/opt/qt55/lib/cmake -DPYTHON_LIBRARY=/opt/python/3.5.0/lib/libpython3.5m.so -DPYTHON_INCLUDE_DIR=/opt/python/3.5.0/include/python3.5m .
+        cmake -DCMAKE_BUILD_TYPE=$CONFIG -DCMAKE_PREFIX_PATH=/opt/qt59/lib/cmake -DPYTHON_LIBRARY=/opt/python/3.5.0/lib/libpython3.5m.so -DPYTHON_INCLUDE_DIR=/opt/python/3.5.0/include/python3.5m .
         ;
     else
         cmake -DCMAKE_BUILD_TYPE=$CONFIG -DCMAKE_PREFIX_PATH=/usr/local/opt/qt5/lib/cmake .
