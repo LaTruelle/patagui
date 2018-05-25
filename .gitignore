@@ -9,3 +9,5 @@ Patagui
 *~
 doc
 CMakeLists.txt.user
+.idea/*
+cmake-build-release/*

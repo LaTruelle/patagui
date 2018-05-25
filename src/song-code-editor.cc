@@ -168,9 +168,11 @@ void SongCodeEditor::setHighlighter(SongHighlighter *highlighter)
     if (previousDocument)
         previousDocument->setModified(state);
 
+#ifdef ENABLE_SPELLCHECK
     if (first)
         connect(this, SIGNAL(wordAdded(const QString &)), m_highlighter,
                 SLOT(addWord(const QString &)));
+#endif
 }
 
 void SongCodeEditor::insertVerse()
