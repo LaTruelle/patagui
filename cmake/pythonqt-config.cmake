@@ -25,7 +25,7 @@ set(PYTHONQT_LIBRARY PythonQt)
 
 # Create dummy PythonQtLib that depends on real pythonqt in order to have cmake behaving properly without having to resort
 # to a superbuild mechanism.
-add_library(PythonQt SHARED IMPORTED)
+add_library(PythonQt STATIC IMPORTED)
 set_target_properties(PythonQt PROPERTIES IMPORTED_LOCATION ${PYTHONQT_INSTALL_DIR}/${CMAKE_STATIC_LIBRARY_PREFIX}PythonQt${CMAKE_STATIC_LIBRARY_SUFFIX})
 add_dependencies(PythonQt PythonQt-External)
 

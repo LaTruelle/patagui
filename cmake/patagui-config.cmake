@@ -16,7 +16,7 @@ option(ENABLE_SPELLCHECK "allow the application to apply spellchecking within so
 # {{{ CFLAGS
 if (CMAKE_BUILD_TYPE MATCHES "Release")
   message(STATUS "Compiling in Release mode")
-  add_definitions(-O2 -march=native)
+  add_definitions(-O2)
 elseif( CMAKE_COMPILER_IS_GNUCXX )
   # Add additional GCC options.
   add_definitions(
