@@ -13,6 +13,7 @@ PREFIX yaml-cpp
 URL "${CMAKE_CURRENT_SOURCE_DIR}/external_libs/yaml-cpp.zip"
 PATCH_COMMAND ""
 BUILD_COMMAND ${CMAKE_MAKE_PROGRAM}
+CMAKE_ARGS -DCMAKE_BUILD_TYPE=Release
 BUILD_IN_SOURCE 1
 INSTALL_COMMAND ""
 # Wrap download, configure and build steps in a script to log output

@@ -10,7 +10,7 @@ ExternalProject_Add(PythonQt-External
 PREFIX pythonqt
 # Backup URL in case SVN messes up.
 URL "${CMAKE_CURRENT_SOURCE_DIR}/external_libs/pythonqt.zip"
-CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH}
+CMAKE_ARGS -DCMAKE_PREFIX_PATH=${CMAKE_PREFIX_PATH} -DCMAKE_BUILD_TYPE=Release
 BUILD_IN_SOURCE 1
 INSTALL_COMMAND ""
 # Wrap download, configure and build steps in a script to log output
