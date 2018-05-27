@@ -139,7 +139,8 @@ if(APPLE)
 endif(APPLE)
 
 # Finding Python 3
-find_package(PythonLibs 3.3 REQUIRED)
+find_package(PythonInterp 3.5 REQUIRED)
+find_package(PythonLibs 3.5 REQUIRED)
 include_directories(${PYTHON_INCLUDE_DIRS})
 list(APPEND LIBRARIES ${PYTHON_LIBRARIES})
 
