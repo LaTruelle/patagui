@@ -9,9 +9,8 @@ import logging
 import threading
 
 # Import patacrep modules
-from patacrep.build import SongbookBuilder, DEFAULT_STEPS
-from patacrep.utils import yesno
-from patacrep import __version__
+import patacrep
+from patacrep.build import SongbookBuilder
 from patacrep import errors
 from patacrep.songbook import open_songbook
 
@@ -26,7 +25,7 @@ stopProcess = False
 
 
 # Define locale according to user's parameters
-def setLocale():
+def set_locale():
     try:
         locale.setlocale(locale.LC_ALL, '')
     except locale.Error as error:
@@ -35,7 +34,7 @@ def setLocale():
 
 
 # Test patacrep version
-def testPatacrep():
+def test_patacrep():
     return patacrep.__version__
 
 
@@ -44,8 +43,8 @@ def message(text):
 
 
 # Load songbook and setup datadirs
-def setupSongbook(songbook_path):
-    setLocale()
+def setup_songbook(songbook_path):
+    set_locale()
     global sb_builder
 
     # Load songbook from sb file.
@@ -61,23 +60,22 @@ def setupSongbook(songbook_path):
 
     # Default value
     basename = os.path.splitext(os.path.basename(songbook_path))[0]
-    songbook['_basename'] = basename
+    songbook['_outputname'] = basename
 
     try:
         sb_builder = SongbookBuilder(songbook)
-        sb_builder.unsafe = True
     except errors.SongbookError as error:
         print("Error in formation of Songbook Builder")
         print(error)
         # Deal with error
 
 
-# Wrapper around buildSongbook that manages the threading part
+# Wrapper around build_songbook that manages the threading part
 def build(steps):
     global stopProcess
     global process
     stopProcess = False
-    process = threading.Thread(target=buildSongbook, args=(steps,))
+    process = threading.Thread(target=build_songbook, args=(steps,))
     try:
         # logger.info('Starting process')
         process.start()
@@ -100,7 +98,7 @@ def build(steps):
 
 
 # Inner function that actually builds the songbook
-def buildSongbook(steps):
+def build_songbook(steps):
     global sb_builder
     # message("Inner Function Reached")
     sys.stdout.flush()
@@ -117,7 +115,7 @@ def buildSongbook(steps):
     # message("Exiting buildSongbook function")
 
 
-def stopBuild():
+def stop_build():
     message("Terminating process")
     global stopProcess
     stopProcess = True
